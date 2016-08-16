@@ -35,217 +35,6 @@ var knightSheet;
 var ninjaSheet;
 
 
-function setupCanvas() {
-    var canvas = document.getElementById("game"); //get canvas with id='game'
-    canvas.width = 1600;
-    canvas.height = 1200;
-    stage = new createjs.Stage(canvas); //makes stage object from the canvas
-    stage.addChild(titleContainer);
-    stage.addChild(instructonsContainer);
-    stage.addChild(playContainer);
-    stage.addChild(gameOverContainer);
-    instructonsContainer.visible = false;
-    playContainer.visible = false;
-    gameOverContainer.visible = false;
-
-    
-    // setup 
-    
-
-    
-}
- 
-function setupMap()
-{
-    
-    playerCharacter = new createjs.Sprite(ninjaSheet);
-    playerCharacter.gotoAndPlay("stand");
-        
-    var firstKey = new createjs.Bitmap(queue.getResult("keyPNG"));
-    var firstChest = new createjs.Bitmap(queue.getResult("chestPNG"));
-    var secondChest = new createjs.Bitmap(queue.getResult("chestPNG"));
-    var thirdChest = new createjs.Bitmap(queue.getResult("chestPNG"));
-    
-    
-    var firstObjective = new Objective(firstKey, 300, 300, true);
-    
-    firstObjective.Draw();
-    
-    var secondObjective = new Objective(firstChest, 300, 700, false);
-    secondObjective.Draw();
-
-    var thirdObjective = new Objective(secondChest, 600, 600, false);
-    thirdObjective.Draw();
-    
-    
-    var fourthObjective = new Objective(thirdChest, 700, 100, false);
-    fourthObjective.Draw();
-    
-    
-    objectives = [firstObjective, secondObjective, thirdObjective, fourthObjective];
-    
-    playContainer.addChild(firstObjective.shape);
-    playContainer.addChild(secondObjective.shape);
-    playContainer.addChild(thirdObjective.shape);
-    playContainer.addChild(fourthObjective.shape);
-    playContainer.addChild(playerCharacter);
-    
-    playTime = new createjs.Text();
-    playTime.x = 100;
-    playTime.y = 50;
-    playTime.scaleX = 5;
-    playTime.scaleY = 5;
-    playTime.text = "10";
-    
-    gameOverTime = new createjs.Text();
-    gameOverTime.x = 400;
-    gameOverTime.y = 400;
-    gameOverTime.scaleX = 5;
-    gameOverTime.scaleY = 5;
-    gameOverTime.text = "10";
-  
-    
-    playContainer.addChild(playTime);
-
-    gameOverContainer.addChild(gameOverTime);
-
-}
-
-function RandomCoordinate() {
-    return Math.floor(Math.random() * (800 - 100 + 1)) + 100;
-}
-
-function SetupObstacles()
-{
-    obstacles = [];
-    for(var i = 0; i < 30; i++)
-    {
-        obstacles[i] = new Obstacle("#111", null, RandomCoordinate(), RandomCoordinate());
-        
-        obstacles[i].SetTarget(RandomCoordinate(), RandomCoordinate());
-        FindTargetDirection(obstacles[i], obstacles[i].xTarget, obstacles[i].yTarget);
-        obstacles[i].Draw();
-
-        playContainer.addChild(obstacles[i].shape);
-    }
-}
-
-function Objective(  _shape,  _x,  _y, _isKey)
-{
- 
-    this.shape = _shape
-    this.x = _x;
-    this.y = _y;
-    this.isKey = _isKey;
-    this.gotten = false;
-
-    this.Remove = function()
-    {
-        this.x = -500;
-        this.y = -500;
-        this.shape.x = -500;
-        this.shape.y = -500;
-        this.SetDirection(0, 0);
-        playContainer.removeChild(this.shape);
-    }
-    
-    this.Draw = function()
-    {
-        console.log("redrawing");
-        playContainer.removeChild(this.shape);
-        if(this.isKey)
-        {
-            this.shape = new createjs.Bitmap(queue.getResult("keyPNG"));
-            this.shape.scaleX = 0.3;
-            this.shape.scaleY = 0.4;
-            this.shape.regX = 10;
-            this.shape.regY = 10;
-            
-        }
-        else
-        {
-            this.shape = new createjs.Bitmap(queue.getResult("chestPNG"));
-          
-            this.shape.scaleX = 0.15;
-            this.shape.scaleY = 0.2;
-            this.shape.regX = 20;
-            this.shape.regY = 20;
-            
-        }
-        
-        this.shape.x = this.x;
-        this.shape.y = this.y;
-        playContainer.addChild(this.shape);
-        playContainer.removeChild(playerCharacter);
-        playContainer.addChild(playerCharacter);
-    };
-}
-
-function Obstacle(_color, _shape, _x, _y)
-{
-    this.color = _color;
-    this.shape = _shape
-    this.x = _x;
-    this.y = _y;
-    this.xDirection = 0;
-    this.yDirection = 0;
-   
-    this.xTarget = 0;
-    this.yTarget = 0;
-    
-    this.SetTarget = function(_x, _y)
-    {
-        this.xTarget = _x;
-        this.yTarget = _y;
-    }
-    
-    this.Remove = function()
-    {
-        this.x = -500;
-        this.y = -500;
-        this.shape.x = -500;
-        this.shape.y = -500;
-        this.SetDirection(0, 0);
-        playContainer.removeChild(this.shape);
-    }
-    
-    this.SetDirection = function(_x, _y)
-    {
-        this.xDirection = _x;
-        this.yDirection = _y;
-    }
-    
-    this.Draw = function()
-    {
-        
-        playContainer.removeChild(this.shape);
-        this.shape = new createjs.Sprite(knightSheet);
-        
-        if(this.xDirection > 0)
-        {
-            this.shape.gotoAndPlay("walkRight");
-        }
-        else if( this.xDirection < 0)
-        {
-            this.shape.gotoAndPlay("walkLeft");
-        }
-        else if(this.yDirection > 0)
-        {
-            this.shape.gotoAndPlay("walkRight");
-        }
-        else if( this.yDirection < 0)
-        {
-            this.shape.gotoAndPlay("walkLeft");
-        }
-        
-        
-        this.shape.x = this.x;
-        this.shape.y = this.y;
-        playContainer.addChild(this.shape);
-        playContainer.removeChild(playerCharacter);
-        playContainer.addChild(playerCharacter);
-    };
-}
 
 var cachedVersion = Date.now();
 var jsEnd = ".js?a=" + cachedVersion;
@@ -273,6 +62,28 @@ manifest = [
     
     
 ];
+
+
+function setupCanvas() {
+    var canvas = document.getElementById("game"); //get canvas with id='game'
+    canvas.width = 1600;
+    canvas.height = 1200;
+    stage = new createjs.Stage(canvas); //makes stage object from the canvas
+    stage.addChild(titleContainer);
+    stage.addChild(instructonsContainer);
+    stage.addChild(playContainer);
+    stage.addChild(gameOverContainer);
+    instructonsContainer.visible = false;
+    playContainer.visible = false;
+    gameOverContainer.visible = false;
+ 
+}
+ 
+function RandomCoordinate() {
+    return Math.floor(Math.random() * (800 - 100 + 1)) + 100;
+}
+
+
 
 
 function loadComplete(evt) {
@@ -343,25 +154,11 @@ function loadComplete(evt) {
     playButton.y = 900;
     playButton.gotoAndPlay("playUp");
     
-    menuButton.on("click", function(evt) { gameState = TITLE; 
-                                        
-                                      
-                                         });
+    menuButton.on("click", function(evt) { gameState = TITLE; });
     
-  
-    
-    instructionsButton.on("click", function(evt) { gameState = INSTRUCTIONS; 
-                                        
-                                                 });
-    
-   
-    
-    playButton.on("click", function(evt) { gameState = PLAY; 
-                                
-                                         });
-    
+    instructionsButton.on("click", function(evt) { gameState = INSTRUCTIONS; });
 
-    
+    playButton.on("click", function(evt) { gameState = PLAY; });
     
     // order of added determines what shows on top.
     titleContainer.addChild(new createjs.Bitmap(queue.getResult("titlePNG")));
@@ -369,7 +166,7 @@ function loadComplete(evt) {
     
     var instructions = new createjs.Text("Use the arrowkeys to move your character around. Collect the Key to open the chests. Open all the chests before the time limit is over. If a guard catches you, the time you have to open all the chests shortens. ")
     
-       instructions.scaleX = 5;
+    instructions.scaleX = 5;
     instructions.scaleY = 5;
     instructions.lineWidth = 300;
     instructonsContainer.addChild(instructions);
@@ -424,84 +221,10 @@ main();
 
 
 
-function mouseInit()
-{
-    stage.enableMouseOver();
-
-}
-
-function init()
-{
-    mouseInit();
-    
-    createjs.Ticker.addEventListener("tick", loop);
-    createjs.Ticker.setFPS(FPS);
-}
 
 
 
-function loop()
-{
-    var switchState = false;
-    switch(gameState)
-    {
-        case 100:
-                titleContainer.visible = true;
-                gameOverContainer.visible = false;
-                playContainer.visible = false;
-                instructonsContainer.visible = false;
-            break;
-        case 200:
-                titleContainer.visible = false;
-                gameOverContainer.visible = false;
-                playContainer.visible = false;
-                instructonsContainer.visible = true;
-            break;
-        case 300:
-                titleContainer.visible = false;
-                gameOverContainer.visible = false;
-                playContainer.visible = true;
-                instructonsContainer.visible = false;
-          
-                // Check current keyboard input, update stage
-                      updateTime();
-                
-            if(gameTimeLeft <= 0 )
-            {
-                switchState = true;
-                PlayFailSound();
-            }
-            else if(ObjectivesComplete())
-            {
-                switchState = true;
-                PlaySuccessSound();
-            }    
-            
-            else{
-                MoveObjects();
-                HitTests();
-            }
-                // Check for bounds issues. If so, reverse move, and set direction change to zero.
-            
-            break;
-        case 400:
-                titleContainer.visible = false;
-                gameOverContainer.visible = true;
-                playContainer.visible = false;
-                instructonsContainer.visible = false;
-                
 
-            break;
-            
-    }
-    if(switchState)
-    {
-        gameState = GAME_OVER;
-    }
-
-    stage.update();
-   
-}
 
 var frameCount = 0;
 var gameTimeLeft = 5;
@@ -554,52 +277,6 @@ function updateTime()
 
 }
              
-function HitTests()
-{
-
-    
-    for(var i = 0; i < objectives.length; i++)
-    {
-        
-        
-        
-        var objective = objectives[i];
-        
-        hitTest = playerCharacter.globalToLocal(objectives[i].x, objectives[i].y);
-        if(playerCharacter.hitTest(hitTest.x, hitTest.y))
-        {
-            
-            
-            
-            if(objective.isKey)
-            {
-                hasKey = true;
-                objective.gotten = true;
-                objective.Remove();
-            }
-            else if(hasKey)
-            {
-                objective.gotten = true;
-                objective.Remove();
-            }
-        }
-
-    }
-    
-    for(var i = 0; i < obstacles.length; i++)
-    {
-        hitTest = playerCharacter.globalToLocal(obstacles[i].x, obstacles[i].y);
-        if(playerCharacter.hitTest(hitTest.x, hitTest.y))
-        {
-            totalLostTime += 1;
-      
-            
-            obstacles[i].Remove();
-        }
-    }
-}
-
-
 
 
 
@@ -614,97 +291,6 @@ function PlayFailSound()
 }
 
 // need either a global mouseText, or get it with document.getElementByID()
-function MoveObjects()
-{
-    
-    playerCharacter.x += xDirection;
-    playerCharacter.y += yDirection;
-    
-    for(var i = 0; i < obstacles.length; i++)
-    {
-        
-        if(obstacles[i].x >= obstacles[i].xTarget-1 && obstacles[i].x <= obstacles[i].xTarget+1 )
-        {
-            if(obstacles[i].y >= obstacles[i].yTarget-1 && obstacles[i].y <= obstacles[i].yTarget+1 )
-            {
-                obstacles[i].x = obstacles[i].xTarget;
-                obstacles[i].y = obstacles[i].yTarget;
-                obstacles[i].shape.x = obstacles[i].xTarget;
-                obstacles[i].shape.y = obstacles[i].yTarget;
-                obstacles[i].xTarget = RandomCoordinate();
-                obstacles[i].yTarget = RandomCoordinate();
-                FindTargetDirection(obstacles[i], obstacles[i].xTarget, obstacles[i].yTarget);
-            }
-            else
-            {
-
-                obstacles[i].x += obstacles[i].xDirection;
-                obstacles[i].y += obstacles[i].yDirection;
-                obstacles[i].shape.x += obstacles[i].xDirection;
-                obstacles[i].shape.y += obstacles[i].yDirection;
-            }
-      
-        }
-
-        else
-        {
-            
-            obstacles[i].x += obstacles[i].xDirection;
-            obstacles[i].y += obstacles[i].yDirection;
-            obstacles[i].shape.x += obstacles[i].xDirection;
-            obstacles[i].shape.y += obstacles[i].yDirection;
-        }
-      
-    }
-}
-
-function FindTargetDirection(obstacle, xTarget, yTarget)
-{
-    //!! TODO, set the xDirection and yDirection to be towards the target.
-    var distanceToTargetX = xTarget - obstacle.x;
-    var distanceToTargetY = yTarget - obstacle.y;
-    obstacle.SetDirection(Math.round(distanceToTargetX / (FPS * 5) * 100)/100, Math.round(distanceToTargetY / (FPS * 5)* 100)/100);
-    
-    obstacle.SetTarget(obstacle.x + (obstacle.xDirection * 150), obstacle.y + (obstacle.yDirection * 150));
-    obstacle.Draw();
-    
-}
 
 
 
-var KEYCODE_LEFT = 37;
-var KEYCODE_UP = 38;
-var KEYCODE_RIGHT = 39;
-var KEYCODE_DOWN = 40;
-var KEYCODE_J = 74;
-
-// Direction is based on KEYCODE down
-var xDirection = 0;
-var yDirection = 0;
-
-function handleKeyDown(evt) {
-    if(!evt){ var evt = window.event; }  //browser compatibility
-    switch(evt.keyCode) {
-        case KEYCODE_LEFT:  xDirection = -3;    playerCharacter.gotoAndPlay("walkLeft");    return false;
-        case KEYCODE_RIGHT: xDirection = 3;     playerCharacter.gotoAndPlay("walkRight");   return false;
-        case KEYCODE_UP:    yDirection = -3; if(xDirection === 0) { playerCharacter.gotoAndPlay("walkRight"); }  return false;
-        case KEYCODE_DOWN:  yDirection = 3;  if(xDirection === 0) { playerCharacter.gotoAndPlay("walkLeft");  }   return false;
-    
-    }
-    console.log(evt.keyCode+" down");
-}
-
-function handleKeyUp(evt) {
-    if(!evt){ var evt = window.event; }  //browser compatibility
-    switch(evt.keyCode) {
-        case KEYCODE_LEFT:  if(yDirection ==0){ playerCharacter.gotoAndPlay("stand");    }   xDirection = 0; break;
-        case KEYCODE_RIGHT: if(yDirection ==0){ playerCharacter.gotoAndPlay("stand");    }  xDirection = 0; break;
-        case KEYCODE_UP:    if(xDirection ==0){ playerCharacter.gotoAndPlay("stand");    }   yDirection = 0; break;
-        case KEYCODE_DOWN:  if(xDirection ==0){ playerCharacter.gotoAndPlay("stand");    }   yDirection = 0; break;
-        case KEYCODE_J: IS_EASYMODE = !IS_EASYMODE; break;
-    }
-   
-}
- 
-document.onkeydown = handleKeyDown;
-document.onkeyup = handleKeyUp;
