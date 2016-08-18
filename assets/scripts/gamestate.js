@@ -32,7 +32,7 @@ function SwitchState() {
             playerSprite.y += speed;
         }
 
-        if (aDown || rightDown) {
+        if (aDown || leftDown) {
             playerSprite.x -= speed;
         } else if (dDown || rightDown) {
             playerSprite.x += speed;
