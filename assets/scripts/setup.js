@@ -1,16 +1,15 @@
-var CANVAS_WIDTH = 800;
-var CANVAS_HEIGHT = 600;
+var CANVAS_SIZE = 640;
 var FPS = 30;
 
 var canvas, stage, queue;
-var scriptSrc = "Assets/Scripts/";
-var imgSrc = "Assets/Images/";
-var audioSrc = "Assets/Audio/";
+var scriptSrc = "assets/scripts/";
+var imgSrc = "assets/images/";
+var audioSrc = "assets/audio/";
 
 function setupCanvas() {
     var canvas = document.getElementById('game');
-    canvas.width = CANVAS_WIDTH;
-    canvas.height = CANVAS_HEIGHT;
+    canvas.width = CANVAS_SIZE;
+    canvas.height = CANVAS_SIZE;
 
     stage = new createjs.Stage(canvas);
     stage.enableMouseOver();
