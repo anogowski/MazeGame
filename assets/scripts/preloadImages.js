@@ -13,6 +13,10 @@
      {
          src: "ninja_m.png",
          id: "ninja_m"
+    },
+     {
+         src: "chests.png",
+         id: "chest"
     }
 ];
 
@@ -28,6 +32,7 @@
      loadSprites();
      gridSetup();
      boardSetup();
+     loadChest();
      loadPlayerSprite();
      stage.update();
 
@@ -101,6 +106,43 @@
      playerSprite.gotoAndPlay("WalkUp");
      stage.addChild(playerSprite);
  }
+
+ function loadChest() {
+     chestX = 32;
+     chestY = 20;
+     var data = new createjs.SpriteSheet({
+         images: [queue.getResult("chest")],
+         frames: {
+             width: chestX,
+             height: chestY
+         },
+         animations: {
+             "Red": {
+                 frames: [0]
+             },
+             "Blue": {
+                 frames: [1]
+             },
+             "Yellow": {
+                 frames: [2]
+             },
+             "Green": {
+                 frames: [3]
+             }
+         }
+     });
+
+     chest = new createjs.Sprite(data);
+     chest.scaleY = 1.6;
+
+     chest.x = 320;
+     chest.y = 320;
+     chest.gotoAndStop("Blue");
+
+     stage.addChild(chest);
+
+ }
+
 
  function gridSetup() {
      var numBorder = CANVAS_SIZE / spriteImageSize;
