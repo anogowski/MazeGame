@@ -358,17 +358,17 @@ function setupMap()
 
     var menuButton = new createjs.Sprite(buttonSheet);
     menuButton.x = 300;
-    menuButton.y = 550;
+    menuButton.y = 600;
     menuButton.gotoAndPlay("menuUp");
     
     var instructionsButton= new createjs.Sprite(buttonSheet);
     instructionsButton.x = 200;
-    instructionsButton.y = 550;
+    instructionsButton.y = 600;
     instructionsButton.gotoAndPlay("instructUp");
     
     var playButton= new createjs.Sprite(buttonSheet);
     playButton.x = 100;
-    playButton.y = 550;
+    playButton.y = 600;
     playButton.gotoAndPlay("playUp");
     
     menuButton.on("click", function(evt) { gameState = TITLE; });
