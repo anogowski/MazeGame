@@ -550,7 +550,8 @@
 
      characterSprite.x = 32;
      characterSprite.y = 32;
-     characterSprite.scaleY = 0.88
+     characterSprite.scaleX = 0.95;
+     characterSprite.scaleY = 0.85;
      characterSprite.gotoAndPlay("WalkUp");
 
      return characterSprite;
