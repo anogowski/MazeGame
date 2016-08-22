@@ -16,11 +16,6 @@
          src: "gameOver.png",
          id: "gameOverPNG"
      },
-
-     {
-         src: "chest.png",
-         id: "chestPNG"
-     },
      {
          src: "key.png",
          id: "keyPNG"
@@ -346,6 +341,25 @@
      }
 
 
+     makeWall(304);
+     makeWall(308);
+     makeWall(312);
+     makeWall(316);
+
+     makeWall(322);
+     makeWall(326);
+     makeWall(330);
+     makeWall(334);
+     makeWall(336);
+
+
+     index = 342;
+     maxi = 14;
+     for (var i = 0; i <= maxi; ++i) {
+         makeHWall(i, index);
+     }
+
+
      for (i = 0; i < walls.length; ++i) {
          playContainer.addChild(walls[i].shape);
          walls[i].Draw();
@@ -570,11 +584,16 @@
      chest = new createjs.Sprite(data);
      chest.scaleY = 1.6;
 
-     chest.x = 320;
-     chest.y = 320;
+     chest.x = grid[124].x;
+     chest.y = grid[124].y;
      chest.gotoAndStop("Blue");
 
-     playContainer.addChild(chest);
+     playContainer.addChild(chest.clone());
+
+     chest.x = grid[335].x;
+     chest.y = grid[335].y;
+     chest.gotoAndStop("Red");
+     playContainer.addChild(chest.clone());
 
  }
 
