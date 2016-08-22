@@ -106,7 +106,7 @@ function MoveObjects()
     
     
     
-    for(var i = 0; i < obstacles.length; i++)
+    for(var i = 0; i < obstacles.length; ++i)
     {
         
         if(obstacles[i].x >= obstacles[i].xTarget-1 && obstacles[i].x <= obstacles[i].xTarget+1 )
@@ -184,7 +184,7 @@ function ObjectivesComplete()
 {
     var complete = true;
     
-    for(var i = 0; i < objectives.length; i++)
+    for(var i = 0; i < objectives.length; ++i)
     {
         if(!objectives[i].gotten)
         {

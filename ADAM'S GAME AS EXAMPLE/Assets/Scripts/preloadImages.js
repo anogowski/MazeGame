@@ -124,7 +124,7 @@ function addButtonsToStage() {
     buttons.x = (CANVAS_WIDTH * 0.5) - 25;
     buttons.y = (CANVAS_HEIGHT * 0.5);
 
-    for (i = 0; i < blockArrayLength; i++) {
+    for (i = 0; i < blockArrayLength; ++i) {
         buttons.x = (CANVAS_WIDTH * 0.5) - 20;
         buttons.y = (CANVAS_HEIGHT * 0.5) + i * 50;
         buttons.gotoAndStop(i * 3);

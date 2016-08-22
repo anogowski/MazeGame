@@ -22,7 +22,7 @@ var IS_EASYMODE = false;
 var sprites;
 var gameScore;
 
- var playerSprite;
+var playerSprite;
 
 
 var titleContainer = new createjs.Container();
@@ -33,8 +33,8 @@ var gameOverContainer = new createjs.Container();
 
 var hasKey = false;
 var objectives;
-var obstacles;
-var walls;
+var obstacles = [];
+var walls = [];
 
 var playTime;
 var gameOverTime;
@@ -51,14 +51,14 @@ function setupCanvas() {
     canvas.height = CANVAS_SIZE;
 
     stage = new createjs.Stage(canvas);
-    
+
     stage.addChild(titleContainer);
     stage.addChild(instructonsContainer);
     stage.addChild(playContainer);
     stage.addChild(gameOverContainer);
- 
-    
-    
+
+
+
     stage.enableMouseOver();
     stage.update();
 
@@ -68,11 +68,11 @@ var date = new Date();
 var cachedVersion = date.getTime();
 
 scriptManifest = [
-        {
+    {
         src: "init.js?a=" + cachedVersion,
         id: "init"
     },
-    
+
     {
         src: "setup.js?a=" + cachedVersion,
         id: "setup"
@@ -104,7 +104,7 @@ scriptManifest = [
         src: "collision.js?a=" + cachedVersion,
         id: "collision"
     }
-    
+
 ];
 
 
@@ -119,11 +119,11 @@ function loadJsComplete(evt) {
     loadFiles();
 }
 
-function main() { 
-    
+function main() {
+
     setupCanvas();
     loadJs();
-      
+
 
 
 }
