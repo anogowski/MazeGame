@@ -65,8 +65,40 @@ function loop()
 function MoveObjects()
 {
     
-    playerCharacter.x += xDirection;
-    playerCharacter.y += yDirection;
+        if (wDown || upDown) {
+            playerSprite.y -= speed;
+            if(WallColliding())
+            {
+                playerSprite.y += speed;
+            }
+        } else if (sDown || downDown) {
+            
+            playerSprite.y += speed;
+            if(WallColliding())
+            {
+                playerSprite.y -= speed;
+            }
+            
+        }
+
+        if (aDown || leftDown) {
+            playerSprite.x -= speed;
+                   if(WallColliding())
+            {
+               playerSprite.x += speed;
+            }
+            
+        } else if (dDown || rightDown) {
+            playerSprite.x += speed;
+                   if(WallColliding())
+            {
+                playerSprite.x -= speed;
+            }
+        }
+
+        bounds();
+    
+    
     
     for(var i = 0; i < obstacles.length; i++)
     {
@@ -117,4 +149,54 @@ function FindTargetDirection(obstacle, xTarget, yTarget)
     obstacle.SetTarget(obstacle.x + (obstacle.xDirection * 150), obstacle.y + (obstacle.yDirection * 150));
     obstacle.Draw();
     
+}
+
+var frameCount = 0;
+var gameTimeLeft = 5;
+function updateTime()
+{
+    
+     frameCount += 1;
+     if(frameCount % (FPS / 10) === 0) {
+         if(IS_EASYMODE === true)
+         {
+            gameTimeLeft = TOTAL_GAME_TIME_J - ( frameCount / (FPS)) - totalLostTime;
+         }
+         else{
+             gameTimeLeft = TOTAL_GAME_TIME_NORMAL - ( frameCount / (FPS))- totalLostTime;
+         
+         }
+        playTime.text = Math.round(gameTimeLeft);
+        
+         if((Math.round(gameTimeLeft * 100 ) / 100) > 0)
+        {
+            gameOverTime.text = "GREAT JOB! You had " + (Math.round(gameTimeLeft *100)/100) + " seconds left!";
+            
+      
+        
+        }
+        else
+        {
+            gameOverTime.text = "You lost!";
+             
+        }
+        
+    }
+
+}
+
+function ObjectivesComplete()
+{
+    var complete = true;
+    
+    for(var i = 0; i < objectives.length; i++)
+    {
+        if(!objectives[i].gotten)
+        {
+            complete = false;
+            i = objectives.length;
+        }
+    }
+    
+    return complete;
 }
