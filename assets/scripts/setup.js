@@ -80,7 +80,7 @@
      playContainer.addChild(playerSprite);
 
      setupMap();
-     SetupObstacles();
+     //SetupObstacles();
      SetupWalls();
 
      createjs.Ticker.addEventListener("tick", loop);
@@ -256,13 +256,92 @@
 
      index = 61;
      maxi = 8;
-     for (var i = 0; i < maxi; ++i) {
+     for (var i = 0; i <= maxi; ++i) {
          makeHWall(i, index);
      }
 
      index = 71;
      maxi = 6;
-     for (var i = 0; i < maxi; ++i) {
+     for (var i = 0; i <= maxi; ++i) {
+         makeHWall(i, index);
+     }
+
+
+     makeWall(89);
+     makeWall(97);
+
+     index = 102;
+     maxi = 5;
+     for (var i = 0; i <= maxi; ++i) {
+         makeHWall(i, index);
+     }
+
+     makeWall(109);
+
+     index = 111;
+     maxi = 6;
+     for (var i = 0; i <= maxi; ++i) {
+         makeHWall(i, index);
+     }
+
+
+     makeWall(122);
+     makeWall(127);
+     makeWall(129);
+     makeWall(131);
+
+     makeWall(142);
+     makeWall(147);
+     makeWall(149);
+     makeWall(151);
+
+     index = 153;
+     maxi = 4;
+     for (var i = 0; i <= maxi; ++i) {
+         makeHWall(i, index);
+     }
+
+
+     makeWall(162);
+     makeWall(167);
+     makeWall(171);
+
+     makeWall(173);
+
+     makeWall(182);
+     makeWall(187);
+     makeWall(191);
+     makeWall(193);
+
+     makeWall(202);
+
+     index = 207;
+     maxi = 4;
+     for (var i = 0; i <= maxi; ++i) {
+         makeHWall(i, index);
+     }
+
+     makeWall(213);
+     makeWall(216);
+     makeWall(217);
+
+     makeWall(222);
+     makeWall(233);
+     makeWall(236);
+
+     index = 242;
+     maxi = 11;
+     for (var i = 0; i <= maxi; ++i) {
+         makeHWall(i, index);
+     }
+     makeWall(256);
+     makeWall(258);
+
+     makeWall(276);
+
+     index = 281;
+     maxi = 16;
+     for (var i = 0; i <= maxi; ++i) {
          makeHWall(i, index);
      }
 
@@ -271,7 +350,6 @@
          playContainer.addChild(walls[i].shape);
          walls[i].Draw();
      }
-
  }
 
 
@@ -283,25 +361,11 @@
      walls.push(new Wall(new createjs.Sprite(terrainData), grid[i + index].x, grid[index].y));
  }
 
- function makeVWall(i, index) {
-     walls.push(new Wall(new createjs.Sprite(terrainData), grid[index].x, grid[i + index].y));
- }
-
  function setupMap() {
-
 
      var firstKey = new createjs.Bitmap(queue.getResult("keyPNG"));
 
-
-
-
-
      var secondObjective = new Objective(firstKey, 400, 50, true);
-
-
-
-
-
 
      objectives = [secondObjective];
 
@@ -513,7 +577,6 @@
      playContainer.addChild(chest);
 
  }
-
 
  function gridSetup() {
      numBorder = CANVAS_SIZE / spriteImageSize;
