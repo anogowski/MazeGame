@@ -29,11 +29,17 @@ function loop()
             {
                 switchState = true;
                 PlayFailSound();
+                totalLostTime = 0;
+                gameTimeLeft = 5;
+                frameCount= 0;
             }
             else if(ObjectivesComplete())
             {
                 switchState = true;
                 PlaySuccessSound();
+                totalLostTime = 0;
+                gameTimeLeft = 5;
+                frameCount= 0;
             }    
             
             else{
@@ -168,18 +174,7 @@ function updateTime()
          }
         playTime.text = Math.round(gameTimeLeft);
         
-         if((Math.round(gameTimeLeft * 100 ) / 100) > 0)
-        {
-            gameOverTime.text = "GREAT JOB! You had " + (Math.round(gameTimeLeft *100)/100) + " seconds left!";
-            
-      
-        
-        }
-        else
-        {
-            gameOverTime.text = "You lost!";
-             
-        }
+
         
     }
 
