@@ -29,11 +29,17 @@ function loop()
             {
                 switchState = true;
                 PlayFailSound();
+                totalLostTime = 0;
+                gameTimeLeft = 5;
+                frameCount= 0;
             }
             else if(ObjectivesComplete())
             {
                 switchState = true;
                 PlaySuccessSound();
+                totalLostTime = 0;
+                gameTimeLeft = 5;
+                frameCount= 0;
             }    
             
             else{

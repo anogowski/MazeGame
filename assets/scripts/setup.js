@@ -265,7 +265,7 @@ function setupMap()
     
     
     
-    var secondObjective = new Objective(firstKey, 400, 30, true);
+    var secondObjective = new Objective(firstKey, 400, 50, true);
     
 
 
