@@ -168,18 +168,7 @@ function updateTime()
          }
         playTime.text = Math.round(gameTimeLeft);
         
-         if((Math.round(gameTimeLeft * 100 ) / 100) > 0)
-        {
-            gameOverTime.text = "GREAT JOB! You had " + (Math.round(gameTimeLeft *100)/100) + " seconds left!";
-            
-      
-        
-        }
-        else
-        {
-            gameOverTime.text = "You lost!";
-             
-        }
+
         
     }
 

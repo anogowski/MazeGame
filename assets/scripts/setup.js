@@ -290,12 +290,7 @@ function setupMap()
     playTime.scaleY = 5;
     playTime.text = "10";
     
-    gameOverTime = new createjs.Text();
-    gameOverTime.x = 400;
-    gameOverTime.y = 400;
-    gameOverTime.scaleX = 5;
-    gameOverTime.scaleY = 5;
-    gameOverTime.text = "10";
+  
   
     
     playContainer.addChild(playTime);
@@ -363,17 +358,17 @@ function setupMap()
 
     var menuButton = new createjs.Sprite(buttonSheet);
     menuButton.x = 300;
-    menuButton.y = 400;
+    menuButton.y = 550;
     menuButton.gotoAndPlay("menuUp");
     
     var instructionsButton= new createjs.Sprite(buttonSheet);
     instructionsButton.x = 200;
-    instructionsButton.y = 400;
+    instructionsButton.y = 550;
     instructionsButton.gotoAndPlay("instructUp");
     
     var playButton= new createjs.Sprite(buttonSheet);
     playButton.x = 100;
-    playButton.y = 400;
+    playButton.y = 550;
     playButton.gotoAndPlay("playUp");
     
     menuButton.on("click", function(evt) { gameState = TITLE; });
@@ -393,40 +388,20 @@ function setupMap()
     instructions.lineWidth = 300;
     instructonsContainer.addChild(instructions);
     gameOverMap = new createjs.Bitmap(queue.getResult("gameOverPNG"));
-    gameOverMap.x = 300;
+    
     gameOverContainer.addChild(gameOverMap);
     
-    var credits = new createjs.Text();
-    credits.x = 100;
-    credits.y = 50;
-    credits.scaleX = 5;
-    credits.scaleY = 5;
-    credits.text = "Credits go to Benjamin Lofgreen! Yay!";
-    credits.x = 100;
-    credits.y = 300;
-    gameOverContainer.addChild(credits);
+
+    
     playContainer.addChild(new createjs.Bitmap(queue.getResult("backgroundPNG")));
     
     
     
-    playContainer.addChild(menuButton);
-    playContainer.addChild(instructionsButton);
-    playContainer.addChild(playButton);
-     
-     
-     
-    titleContainer.addChild(menuButton);
-    titleContainer.addChild(instructionsButton);
-    titleContainer.addChild(playButton);
-     
-    instructonsContainer.addChild(menuButton);
-    instructonsContainer.addChild(instructionsButton);
-    instructonsContainer.addChild(playButton);
-     
-     gameOverContainer.addChild(menuButton);
-    gameOverContainer.addChild(instructionsButton);
-    gameOverContainer.addChild(playButton);
 
+    stage.addChild(menuButton);
+    stage.addChild(instructionsButton);
+    stage.addChild(playButton);
+    stage.update();
  }
 
  function loadPlayerSprite(fileName) {

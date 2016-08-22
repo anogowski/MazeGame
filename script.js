@@ -1,7 +1,7 @@
 var CANVAS_SIZE = 640;
 var FPS = 30;
 
-var gameState = 300;
+var gameState = 100;
 
 var TITLE = 100;
 var INSTRUCTIONS = 200;
@@ -56,10 +56,7 @@ function setupCanvas() {
     stage.addChild(instructonsContainer);
     stage.addChild(playContainer);
     stage.addChild(gameOverContainer);
-    titleContainer.visible = false;
-    instructonsContainer.visible = false;
-    playContainer.visible = true;
-    gameOverContainer.visible = false;
+ 
     
     
     stage.enableMouseOver();
