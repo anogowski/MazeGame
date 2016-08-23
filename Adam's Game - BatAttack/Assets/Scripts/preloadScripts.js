@@ -39,6 +39,10 @@ scriptManifest = [
         id: "collision"
     },
     {
+        src: "enemy.js?a=" + cachedVersion,
+        id: "enemy"
+    },
+    {
         src: "helper.js?a=" + cachedVersion,
         id: "helper"
     }

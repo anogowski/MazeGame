@@ -89,8 +89,8 @@ function addBackGroundToStage() {
     levelFrame.y = menuY;
     levelFrame.visible = false;
 
-    stage.addChild(myText);
-    myText.visible = false;
+    stage.addChild(timerText);
+    timerText.visible = false;
 
 }
 
@@ -124,8 +124,8 @@ function addButtonsToStage() {
     buttons.x = (CANVAS_WIDTH * 0.5) - 25;
     buttons.y = (CANVAS_HEIGHT * 0.5);
 
-    for (i = 0; i < blockArrayLength; ++i) {
-        buttons.x = (CANVAS_WIDTH * 0.5) - 20;
+    for (i = 0; i < blockArrayLength; i++) {
+        buttons.x = (CANVAS_WIDTH * 0.5) - 30;
         buttons.y = (CANVAS_HEIGHT * 0.5) + i * 50;
         buttons.gotoAndStop(i * 3);
         blockArray.push(buttons.clone());
@@ -155,6 +155,10 @@ function Enemy() {
             height: 32
         },
         animations: {
+            "Forward": {
+                frames: [1, 2, 3],
+                speed: 0.15
+            },
             "Right": {
                 frames: [5, 6, 7],
                 speed: 0.25
@@ -177,7 +181,6 @@ function Enemy() {
     bat = new createjs.Sprite(data);
     bat.scaleX = 1.25;
     bat.scaleY = 1.25;
-
     if (numBats % 2 != 0) {
         ++numBats;
     }
@@ -185,23 +188,28 @@ function Enemy() {
     for (i = 0; i < numBats / 2; ++i) {
         bat.y = 400 + (i * 30);
 
-        bat.x = CANVAS_WIDTH - 50;
+        bat.x = CANVAS_WIDTH - padX * 5;
         bat.gotoAndPlay("Left");
-        bats.push(bat.clone());
+        var temp = bat.clone()
+        temp.originX = CANVAS_WIDTH - padX * 5;
+        temp.dirX = -1;
+        temp.boundX = 0 - padX;
+        bats.push(temp);
 
         bat.x = padX;
         bat.gotoAndPlay("Right");
-        bats.push(bat.clone());
+
+        var temp2 = bat.clone()
+        temp2.originX = padX;
+        temp2.dirX = 1;
+        temp2.boundX = CANVAS_WIDTH;
+        bats.push(temp2);
     }
 
     for (i = 0; i < numBats; ++i) {
         stage.addChild(bats[i]);
         bats[i].visible = false;
     }
-}
-
-function createBatArray() {
-
 }
 
 function Player() {
@@ -214,11 +222,13 @@ function Player() {
         animations: {
             "AttackLeft": {
                 frames: [0, 1, 2, 3, 4, 5],
-                speed: 0.25
+                speed: 0.25,
+                next: "WalkLeft"
             },
             "AttackRight": {
                 frames: [6, 7, 8, 9, 10, 11],
-                speed: 0.25
+                speed: 0.25,
+                next: "WalkRight"
             },
             "WalkLeft": {
                 frames: [12, 13, 14, 15, 16, 17, 18],

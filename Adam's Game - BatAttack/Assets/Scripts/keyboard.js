@@ -7,6 +7,7 @@ var KEYCODE_A = 65;
 var KEYCODE_S = 83;
 var KEYCODE_D = 68;
 var KEYCODE_SPACE = 32;
+var KEYCODE_H = 72;
 var KEYCODE_J = 74;
 
 var leftDown = false;
@@ -18,6 +19,7 @@ var aDown = false;
 var sDown = false;
 var dDown = false;
 var spaceDown = false;
+var hDown = false;
 var jDown = false;
 
 function handleKeyDown(evt) {
@@ -26,16 +28,14 @@ function handleKeyDown(evt) {
     }
     switch (evt.keyCode) {
     case KEYCODE_LEFT:
-        if (!leftDown) {
+        if (!leftDown && !attacking) {
             goblin.gotoAndPlay("AttackLeft");
-            attacking = true;
             leftDown = !leftDown;
         }
         return false;
     case KEYCODE_RIGHT:
-        if (!rightDown) {
+        if (!rightDown && !attacking) {
             goblin.gotoAndPlay("AttackRight");
-            attacking = true;
             rightDown = !rightDown;
         }
         return false;
@@ -84,7 +84,21 @@ function handleKeyDown(evt) {
     case KEYCODE_J:
         if (!jDown) {
             resetHealth();
+            --batMaxSpeed;
+            if (batMaxSpeed <= 0) {
+                batMaxSpeed = 1;
+            }
             jDown = !jDown;
+        }
+        return false;
+    case KEYCODE_H:
+        if (!hDown) {
+            ++batMaxSpeed;
+            ++batSpeed;
+            if (batMaxSpeed > 6) {
+                batMaxSpeed = 6;
+            }
+            hDown = !hDown;
         }
         return false;
     }
@@ -97,13 +111,11 @@ function handleKeyUp(evt) {
     switch (evt.keyCode) {
     case KEYCODE_LEFT:
         if (leftDown) {
-            attacking = false;
             leftDown = !leftDown;
         }
         break;
     case KEYCODE_RIGHT:
         if (rightDown) {
-            attacking = false;
             rightDown = !rightDown;
         }
         break;
@@ -151,12 +163,18 @@ function handleKeyUp(evt) {
         break;
     case KEYCODE_J:
         if (jDown) {
-
             jDown = !jDown;
         }
         break;
+    case KEYCODE_H:
+        if (hDown) {
+            hDown = !hDown;
+        }
+        break;
     }
+
 }
+
 
 
 document.onkeydown = handleKeyDown;
