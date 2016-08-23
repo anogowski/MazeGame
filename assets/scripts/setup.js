@@ -7,6 +7,7 @@
 
  var numBorder;
  var terrainData;
+var chestData;
  manifest = [
      {
          src: "buttons.png",
@@ -69,8 +70,7 @@
 
      gridSetup();
      boardSetup();
-     loadChest();
-
+  
      playerSprite = loadPlayerSprite("ninja_m");
      playContainer.addChild(playerSprite);
 
@@ -109,18 +109,12 @@
          playContainer.removeChild(this.shape);
          if (this.isKey) {
              this.shape = new createjs.Bitmap(queue.getResult("keyPNG"));
-             this.shape.scaleX = 0.3;
-             this.shape.scaleY = 0.4;
-             this.shape.regX = 10;
-             this.shape.regY = 10;
+        
 
          } else {
-             this.shape = new createjs.Bitmap(queue.getResult("chestPNG"));
-
-             this.shape.scaleX = 0.15;
-             this.shape.scaleY = 0.2;
-             this.shape.regX = 20;
-             this.shape.regY = 20;
+             this.shape = new createjs.Sprite(chestData);
+            
+             this.shape.scaleY = 1.6;
 
          }
 
@@ -376,20 +370,69 @@
  }
 
  function setupMap() {
+        chestX = 32;
+     chestY = 20;
+       chestData = new createjs.SpriteSheet({
+         images: [queue.getResult("chest")],
+         frames: {
+             width: chestX,
+             height: chestY
+         },
+         animations: {
+             "Red": {
+                 frames: [0]
+             },
+             "Blue": {
+                 frames: [1]
+             },
+             "Yellow": {
+                 frames: [2]
+             },
+             "Green": {
+                 frames: [3]
+             }
+         }
+     });
+    
+     var chestShape = new createjs.Sprite(chestData);
+     chestShape.scaleY = 1.6;
 
+     chestShape.x = grid[124].x;
+     chestShape.y = grid[124].y;
+     chestShape.gotoAndStop("Blue");
+    
+    var chestShape2 = new createjs.Sprite(chestData);
+     chestShape2.scaleY = 1.6;
+
+     chestShape2.x = grid[335].x;
+     chestShape2.y = grid[335].y;
+     chestShape2.gotoAndStop("Red");
+     
+     
+     var firstObjective = new Objective(chestShape,  grid[124].x, grid[124].y, false);
+     var secondObjective = new Objective(chestShape2,  grid[335].x, grid[335].y, false);
+    
+        
+
+     
      var firstKey = new createjs.Bitmap(queue.getResult("keyPNG"));
 
-     var secondObjective = new Objective(firstKey, 400, 50, true);
+     var thirdObjective = new Objective(firstKey, 400, 50, true);
 
-     objectives = [secondObjective];
-
-
+     objectives = [firstObjective, secondObjective, thirdObjective];
+     
+ 
+     
+     playContainer.addChild(firstObjective.shape);
      playContainer.addChild(secondObjective.shape);
-
+    playContainer.addChild(thirdObjective.shape);
+     
      playContainer.addChild(playerSprite);
 
 
-     secondObjective.Draw();
+    firstObjective.Draw();
+     secondObjective.Draw(); 
+     thirdObjective.Draw();
 
 
      playTime = new createjs.Text();
@@ -557,46 +600,7 @@
      return characterSprite;
  }
 
- function loadChest() {
-     chestX = 32;
-     chestY = 20;
-     var data = new createjs.SpriteSheet({
-         images: [queue.getResult("chest")],
-         frames: {
-             width: chestX,
-             height: chestY
-         },
-         animations: {
-             "Red": {
-                 frames: [0]
-             },
-             "Blue": {
-                 frames: [1]
-             },
-             "Yellow": {
-                 frames: [2]
-             },
-             "Green": {
-                 frames: [3]
-             }
-         }
-     });
-
-     chest = new createjs.Sprite(data);
-     chest.scaleY = 1.6;
-
-     chest.x = grid[124].x;
-     chest.y = grid[124].y;
-     chest.gotoAndStop("Blue");
-
-     playContainer.addChild(chest.clone());
-
-     chest.x = grid[335].x;
-     chest.y = grid[335].y;
-     chest.gotoAndStop("Red");
-     playContainer.addChild(chest.clone());
-
- }
+ 
 
  function gridSetup() {
      numBorder = CANVAS_SIZE / spriteImageSize;
