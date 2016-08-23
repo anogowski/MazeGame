@@ -1,14 +1,15 @@
- var block;
- var levelArray = [];
- var grid = [];
- var spriteImageSize = 32;
- var playerImgSizeX = 32;
- var playerImgSizeY = 36;
+var block;
+var levelArray = [];
+var grid = [];
+var spriteImageSize = 32;
+var playerImgSizeX = 32;
+var playerImgSizeY = 36;
 
- var numBorder;
- var terrainData;
+var numBorder;
+var terrainData;
 var chestData;
- manifest = [
+ 
+manifest = [
      {
          src: "buttons.png",
          id: "button"
@@ -38,34 +39,45 @@ var chestData;
          src: "sprites.png",
          id: "sprites"
     },
-     {
+    {
          src: "ninja_m.png",
          id: "ninja_m"
     },
-     {
+    {
+         src: "laserTrap.png",
+         id: "laserTrap"
+    },
+    {
+         src: "fireTrap.png",
+         id: "fireTrap"
+    },
+    {
+         src: "mudTrap.png",
+         id: "mudTrap"
+    },
+    {
          src: "chests.png",
          id: "chest"
     },
-
-     {
+    {
          src: "failure.mp3",
          id: "fail"
     },
-     {
+    {
          src: "success.mp3",
          id: "success"
     }
 ];
 
 
- function loadFiles() {
+function loadFiles() {
      queue = new createjs.LoadQueue(true, imgSrc); //files are stored in 'images' directory
      queue.on("complete", loadComplete, this); //when loading is done run 'loadComplete()'
      queue.loadManifest(manifest); //load files listed in 'manifest'
- }
+}
 
 
- function loadComplete(evt) {
+function loadComplete(evt) {
      loadSprites();
 
      gridSetup();
@@ -84,10 +96,10 @@ var chestData;
      loop();
      stage.update();
 
- }
+}
 
 
- function Objective(_shape, _x, _y, _isKey) {
+function Objective(_shape, _x, _y, _isKey) {
 
      this.shape = _shape
      this.x = _x;
@@ -124,54 +136,52 @@ var chestData;
          playContainer.removeChild(playerSprite);
          playContainer.addChild(playerSprite);
      };
- }
+}
 
- function Obstacle(_color, _shape, _x, _y) {
-     this.color = _color;
+var MudTrap = 100;
+var LaserTrap = 200;
+var FireTrap = 300;
+
+
+function Obstacle(_trapType, _shape, _x, _y) {
+   
+     this.trapType = _trapType;
      this.shape = _shape
      this.x = _x;
      this.y = _y;
-     this.xDirection = 0;
-     this.yDirection = 0;
-
-     this.xTarget = 0;
-     this.yTarget = 0;
-
-     this.SetTarget = function (_x, _y) {
-         this.xTarget = _x;
-         this.yTarget = _y;
-     }
+     
 
      this.Remove = function () {
          this.x = -500;
          this.y = -500;
          this.shape.x = -500;
          this.shape.y = -500;
-         this.SetDirection(0, 0);
+   
          playContainer.removeChild(this.shape);
      }
 
-     this.SetDirection = function (_x, _y) {
-         this.xDirection = _x;
-         this.yDirection = _y;
-     }
 
      this.Draw = function () {
 
          playContainer.removeChild(this.shape);
-         var newSprite = loadPlayerSprite("warrior_m");
-
-
-         if (this.xDirection > 0) {
-             newSprite.gotoAndPlay("WalkRight");
-         } else if (this.xDirection < 0) {
-             newSprite.gotoAndPlay("WalkLeft");
-         } else if (this.yDirection > 0) {
-             newSprite.gotoAndPlay("WalkUp");
-         } else if (this.yDirection < 0) {
-             newSprite.gotoAndPlay("WalkDown");
+         
+         var newShape = null;
+         
+         if((this.trapType %1) === (MudTrap % 1))
+         {
+            newShape = new createjs.Bitmap(queue.getResult("mudTrap"));
          }
-         this.shape = newSprite;
+         else  if((this.trapType %1) === (LaserTrap % 1))
+         {
+             newShape = new createjs.Bitmap(queue.getResult("laserTrap"));
+         }
+         else  if((this.trapType %1) === (FireTrap % 1))
+         {
+             newShape = new createjs.Bitmap(queue.getResult("fireTrap"));
+         }
+
+
+         this.shape = newShape;
 
          this.shape.x = this.x;
          this.shape.y = this.y;
@@ -179,9 +189,11 @@ var chestData;
          playContainer.removeChild(playerSprite);
          playContainer.addChild(playerSprite);
      };
- }
+}
 
- function Wall(_shape, _x, _y) {
+
+
+function Wall(_shape, _x, _y) {
 
      this.shape = _shape
      this.x = _x;
@@ -210,14 +222,14 @@ var chestData;
          playContainer.addChild(this.shape);
 
      };
- }
+}
 
 
- function RandomCoordinate() {
+function RandomCoordinate() {
      return Math.floor(Math.random() * (800 - 100 + 1)) + 100;
- }
+}
 
- function SetupObstacles() {
+function SetupObstacles() {
      obstacles = [];
      for (var i = 0; i < 30; ++i) {
          obstacles[i] = new Obstacle("#111", loadPlayerSprite("warrior_m"), RandomCoordinate(), RandomCoordinate());
@@ -229,9 +241,9 @@ var chestData;
          playContainer.addChild(obstacles[i].shape);
          obstacles[i].Draw();
      }
- }
+}
 
- function SetupWalls() {
+function SetupWalls() {
      walls = [];
      var index = 61;
      var maxi = 8;
@@ -358,18 +370,18 @@ var chestData;
          playContainer.addChild(walls[i].shape);
          walls[i].Draw();
      }
- }
+}
 
 
- function makeWall(index) {
+function makeWall(index) {
      walls.push(new Wall(new createjs.Sprite(terrainData), grid[index].x, grid[index].y));
- }
+}
 
- function makeHWall(i, index) {
+function makeHWall(i, index) {
      walls.push(new Wall(new createjs.Sprite(terrainData), grid[i + index].x, grid[index].y));
- }
+}
 
- function setupMap() {
+function setupMap() {
         chestX = 32;
      chestY = 20;
        chestData = new createjs.SpriteSheet({
@@ -401,7 +413,7 @@ var chestData;
      chestShape.y = grid[124].y;
      chestShape.gotoAndStop("Blue");
     
-    var chestShape2 = new createjs.Sprite(chestData);
+     var chestShape2 = new createjs.Sprite(chestData);
      chestShape2.scaleY = 1.6;
 
      chestShape2.x = grid[335].x;
@@ -427,7 +439,7 @@ var chestData;
      playContainer.addChild(secondObjective.shape);
      playContainer.addChild(thirdObjective.shape);
      
-     playContainer.addChild(playerSprite);
+    
 
 
      firstObjective.Draw();
@@ -444,14 +456,14 @@ var chestData;
 
 
 
+    playContainer.addChild(playerSprite);
+    playContainer.addChild(playTime);
 
-     playContainer.addChild(playTime);
+    gameOverContainer.addChild(gameOverTime);
 
-     gameOverContainer.addChild(gameOverTime);
+}
 
- }
-
- function loadSprites() {
+function loadSprites() {
      terrainData = new createjs.SpriteSheet({
          images: [queue.getResult("sprites")],
          frames: {
@@ -533,9 +545,8 @@ var chestData;
 
      playButton.on("click", function (evt) {
          gameState = PLAY;
-                totalLostTime = 0;
-                gameTimeLeft = 5;
-                frameCount= 0;
+           
+         
                 
      });
 
@@ -564,9 +575,9 @@ var chestData;
      stage.addChild(instructionsButton);
      stage.addChild(playButton);
      stage.update();
- }
+}
 
- function loadPlayerSprite(fileName) {
+function loadPlayerSprite(fileName) {
      var data = new createjs.SpriteSheet({
          images: [queue.getResult(fileName)],
          frames: {
@@ -602,11 +613,11 @@ var chestData;
      characterSprite.gotoAndPlay("WalkUp");
 
      return characterSprite;
- }
+}
 
  
 
- function gridSetup() {
+function gridSetup() {
      numBorder = CANVAS_SIZE / spriteImageSize;
 
      for (i = 0; i < numBorder; ++i) {
@@ -621,9 +632,9 @@ var chestData;
              });
          }
      }
- }
+}
 
- function boardSetup() {
+function boardSetup() {
 
      var numBorder = CANVAS_SIZE / spriteImageSize;
 
@@ -645,13 +656,37 @@ var chestData;
      for (i = 0; i < levelArray.length; ++i) {
          playContainer.addChild(levelArray[i]);
      }
- }
+}
+
+function resetPlay()
+{
+    
+    totalLostTime = 0;
+    gameTimeLeft = 5;
+    frameCount= 0;
+    for(var i = 0; i < objectives.length; i++)
+    {
+        objectives[i].Remove();
+        playContainer.removeChild(objectives[i].shape);
+        
+       
+    }
+    playContainer.removeChild(playerSprite);
+    playContainer.removeChild(playTime);
+
+    gameOverContainer.removeChild(gameOverTime);
+    
+    playerSprite = loadPlayerSprite("ninja_m");
+    setupMap();
+    chestsGotten = 0;
+    
+}
 
 
- function PlaySuccessSound() {
+function PlaySuccessSound() {
      createjs.Sound.play("success");
- }
+}
 
- function PlayFailSound() {
+function PlayFailSound() {
      createjs.Sound.play("fail");
- }
+}

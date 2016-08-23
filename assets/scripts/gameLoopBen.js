@@ -29,13 +29,13 @@ function loop()
             {
                 switchState = true;
                 PlayFailSound();
-             
+                resetPlay();
             }
             else if(ObjectivesComplete())
             {
                 switchState = true;
                 PlaySuccessSound();
-        
+                resetPlay();
             }    
             
             else{
