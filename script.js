@@ -13,11 +13,11 @@ var scriptSrc = "assets/scripts/";
 var imgSrc = "assets/images/";
 var audioSrc = "assets/audio/";
 
-var obstacleClearedColor = "#AAE";
-var obstacleUnclearedColor = "#A66";
-var TOTAL_GAME_TIME_NORMAL = 35;
+
+var TOTAL_GAME_TIME_NORMAL = 50;
 var TOTAL_GAME_TIME_J = 10000;
 var IS_EASYMODE = false;
+var chestsGotten = 0;
 
 var sprites;
 var gameScore;

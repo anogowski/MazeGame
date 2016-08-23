@@ -29,17 +29,13 @@ function loop()
             {
                 switchState = true;
                 PlayFailSound();
-                totalLostTime = 0;
-                gameTimeLeft = 5;
-                frameCount= 0;
+             
             }
             else if(ObjectivesComplete())
             {
                 switchState = true;
                 PlaySuccessSound();
-                totalLostTime = 0;
-                gameTimeLeft = 5;
-                frameCount= 0;
+        
             }    
             
             else{
@@ -54,6 +50,7 @@ function loop()
                 gameOverContainer.visible = true;
                 playContainer.visible = false;
                 instructonsContainer.visible = false;
+
                 
 
             break;
@@ -166,10 +163,10 @@ function updateTime()
      if(frameCount % (FPS / 10) === 0) {
          if(IS_EASYMODE === true)
          {
-            gameTimeLeft = TOTAL_GAME_TIME_J - ( frameCount / (FPS)) - totalLostTime;
+            gameTimeLeft = TOTAL_GAME_TIME_J - ( frameCount / (FPS)) - totalLostTime + (chestsGotten * 10);
          }
          else{
-             gameTimeLeft = TOTAL_GAME_TIME_NORMAL - ( frameCount / (FPS))- totalLostTime;
+             gameTimeLeft = TOTAL_GAME_TIME_NORMAL+ (chestsGotten * 10) - ( frameCount / (FPS)) - totalLostTime;
          
          }
         playTime.text = Math.round(gameTimeLeft);

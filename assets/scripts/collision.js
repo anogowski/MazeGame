@@ -44,6 +44,8 @@ function HitTests() {
             } else if (hasKey) {
                 objective.gotten = true;
                 objective.Remove();
+                chestsGotten += 1;
+                console.log("Power Up!");
             }
         }
 

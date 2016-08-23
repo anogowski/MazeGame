@@ -100,7 +100,7 @@ var chestData;
          this.y = -500;
          this.shape.x = -500;
          this.shape.y = -500;
-         this.SetDirection(0, 0);
+         
          playContainer.removeChild(this.shape);
      }
 
@@ -425,12 +425,12 @@ var chestData;
      
      playContainer.addChild(firstObjective.shape);
      playContainer.addChild(secondObjective.shape);
-    playContainer.addChild(thirdObjective.shape);
+     playContainer.addChild(thirdObjective.shape);
      
      playContainer.addChild(playerSprite);
 
 
-    firstObjective.Draw();
+     firstObjective.Draw();
      secondObjective.Draw(); 
      thirdObjective.Draw();
 
@@ -533,17 +533,21 @@ var chestData;
 
      playButton.on("click", function (evt) {
          gameState = PLAY;
+                totalLostTime = 0;
+                gameTimeLeft = 5;
+                frameCount= 0;
+                
      });
 
      // order of added determines what shows on top.
      titleContainer.addChild(new createjs.Bitmap(queue.getResult("titlePNG")));
 
 
-     var instructions = new createjs.Text("Use the arrowkeys to move your character around. Collect the Key to open the chests. Open all the chests before the time limit is over. If a guard catches you, the time you have to open all the chests shortens. ")
+     var instructions = new createjs.Text("Use the arrowkeys or WASD to move your character around. Collect the Key to open the chests. Open all the chests before the time limit is over. Getting a chest increases the time remaining. ")
 
      instructions.scaleX = 5;
      instructions.scaleY = 5;
-     instructions.lineWidth = 300;
+     instructions.lineWidth = 100;
      instructonsContainer.addChild(instructions);
      gameOverMap = new createjs.Bitmap(queue.getResult("gameOverPNG"));
 
