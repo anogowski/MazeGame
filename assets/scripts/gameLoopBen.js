@@ -178,6 +178,14 @@ function TrapUpdates()
             else
             {
                 obstacle.isOn = !obstacle.isOn;
+                if(obstacle.isOn)
+                {
+                    obstacle.currentTime = obstacle.timeOn;
+                }
+                else
+                {
+                    obstacle.currentTime = obstacle.timeOff;
+                }
             }
             obstacle.Draw();
         }

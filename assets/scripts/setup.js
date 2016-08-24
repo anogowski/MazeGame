@@ -404,20 +404,23 @@ function makeTrap(index, type) {
     if ((type % 1) === (MudTrap % 1)) {
 
         block.gotoAndStop("Dirt");
-        var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y);
-        obstacles.push(new Obstacle);
+        var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y, 10, 10);
+        obstacles.push(obstacle);
+         obstacle.Draw();
     } else if ((type % 1) === (LaserVTrap % 1)) {
         var newSprite = new createjs.Sprite(laserVTrapData);
-        newSprite.gotoAndStop("fire");
-        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y);
-        obstacles.push(new Obstacle);
+        newSprite.gotoAndPlay("fire");
+        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
+        obstacles.push(obstacle);
+         obstacle.Draw();
     } else if ((type % 1) === (FireTrap % 1)) {
         var newSprite = new createjs.Sprite(fireTrapData);
         newSprite.scaleX = 0.5;
         newSprite.scaleY = 0.5;
-        newSprite.gotoAndStop("fire");
-        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y);
-        obstacles.push(new Obstacle);
+        newSprite.gotoAndPlay("fire");
+        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
+        obstacles.push(obstacle);
+        obstacle.Draw();
     }
 
 }
