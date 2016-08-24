@@ -144,13 +144,16 @@ var LaserTrap = 200;
 var FireTrap = 300;
 
 
-function Obstacle(_trapType, _shape, _x, _y) {
+function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
    
      this.trapType = _trapType;
      this.shape = _shape
      this.x = _x;
      this.y = _y;
-     
+     this.timeOn = _timeOn;
+     this.timeOff = _timeOff;
+     this.isOn = true;
+     this.currentTime = _timeOn;
 
      this.Remove = function () {
          this.x = -500;
@@ -169,16 +172,39 @@ function Obstacle(_trapType, _shape, _x, _y) {
          var newShape = null;
          
          if((this.trapType %1) === (MudTrap % 1))
-         {
-            newShape = new createjs.Bitmap(queue.getResult("mudTrap"));
+         {             
+              
+            block.gotoAndStop("Dirt");
+            newShape = block.clone();
+         
          }
          else  if((this.trapType %1) === (LaserTrap % 1))
          {
-             newShape = new createjs.Bitmap(queue.getResult("laserTrap"));
+                       
+            newShape = new createjs.Sprite(laserTrapData);
+            if(this.isOn)
+            {
+                newShape.gotoAndStop("");
+            }
+            else
+            {
+                newShape.gotoAndStop("");
+            }          
+             
          }
          else  if((this.trapType %1) === (FireTrap % 1))
          {
-             newShape = new createjs.Bitmap(queue.getResult("fireTrap"));
+                        
+            newShape = new createjs.Sprite(FireTrap);
+            if(this.isOn)
+            {
+                newShape.gotoAndStop("");
+            }
+            else
+            {
+                newShape.gotoAndStop("");
+            }
+             
          }
 
 
@@ -377,7 +403,6 @@ function makeHWall(i, index) {
 
 function makeTrap(index, type)
 {
-   
     
     if((type %1) === (MudTrap % 1))
     {
@@ -389,19 +414,19 @@ function makeTrap(index, type)
     else  if((type %1) === (LaserTrap % 1))
     {
         var newSprite = new createjs.Sprite(laserTrapData);
+        newSprite.gotoAndStop("");
         var obstacle = new Obstacle(type, newSprite,  grid[index].x, grid[index].y);
         obstacles.push(new Obstacle);
     }
     else  if((type %1) === (FireTrap % 1))
     {
         var newSprite = new createjs.Sprite(fireTrapData);
+        newSprite.gotoAndStop("");
         var obstacle = new Obstacle(type, newSprite,  grid[index].x, grid[index].y);
         obstacles.push(new Obstacle);
-    }
-    
+    }    
 
 }
-
 
 function setupMap() {
         chestX = 32;

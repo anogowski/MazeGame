@@ -103,42 +103,7 @@ function MoveObjects()
     
     
     
-    for(var i = 0; i < obstacles.length; ++i)
-    {
-        
-        if(obstacles[i].x >= obstacles[i].xTarget-1 && obstacles[i].x <= obstacles[i].xTarget+1 )
-        {
-            if(obstacles[i].y >= obstacles[i].yTarget-1 && obstacles[i].y <= obstacles[i].yTarget+1 )
-            {
-                obstacles[i].x = obstacles[i].xTarget;
-                obstacles[i].y = obstacles[i].yTarget;
-                obstacles[i].shape.x = obstacles[i].xTarget;
-                obstacles[i].shape.y = obstacles[i].yTarget;
-                obstacles[i].xTarget = RandomCoordinate();
-                obstacles[i].yTarget = RandomCoordinate();
-                FindTargetDirection(obstacles[i], obstacles[i].xTarget, obstacles[i].yTarget);
-            }
-            else
-            {
-
-                obstacles[i].x += obstacles[i].xDirection;
-                obstacles[i].y += obstacles[i].yDirection;
-                obstacles[i].shape.x += obstacles[i].xDirection;
-                obstacles[i].shape.y += obstacles[i].yDirection;
-            }
-      
-        }
-
-        else
-        {
-            
-            obstacles[i].x += obstacles[i].xDirection;
-            obstacles[i].y += obstacles[i].yDirection;
-            obstacles[i].shape.x += obstacles[i].xDirection;
-            obstacles[i].shape.y += obstacles[i].yDirection;
-        }
-      
-    }
+    
 }
 
 
@@ -191,4 +156,31 @@ function ObjectivesComplete()
     }
     
     return complete;
+}
+
+
+function TrapUpdates()
+{
+    for (var i = 0; i < obstacles.length; ++i) {
+
+        var obstacle = obstacles[i];
+        
+        if((obstacle.trapType % 1) === (MudTrap % 1))
+        {
+            
+        }
+        else
+        {
+            if((obstacle.currentTime % 1) > 0)
+            {
+                obstacle.currentTime -= 1;
+            }
+            else
+            {
+                obstacle.isOn = !obstacle.isOn;
+            }
+            obstacle.Draw();
+        }
+
+    }
 }

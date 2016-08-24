@@ -54,25 +54,28 @@ function HitTests() {
 
         var obstacle = obstacles[i];
     
-
-        if (ndgmr.checkPixelCollision(playerSprite, obstacle.shape, 1, true)) {
+        if(obstacle.isOn)
+        {
+            if (ndgmr.checkPixelCollision(playerSprite, obstacle.shape, 1, true)) {
             
-            if((this.trapType %1) === (MudTrap % 1))
-            {
-                isInMud = true;
-                isInFire = false;
-            }
-            else  if((this.trapType %1) === (LaserTrap % 1))
-            {
-                isInMud = false;
-                isInFire = false;
-            }
-            else  if((this.trapType %1) === (FireTrap % 1))
-            {
-                isInMud = false;
-                isInFire = true;
+                if((this.trapType %1) === (MudTrap % 1))
+                {
+                    isInMud = true;
+                    isInFire = false;
+                }
+                else  if((this.trapType %1) === (LaserTrap % 1))
+                {
+                    isInMud = false;
+                    isInFire = false;
+                }
+                else  if((this.trapType %1) === (FireTrap % 1))
+                {
+                    isInMud = false;
+                    isInFire = true;
+                }
             }
         }
+
     }
     
     if(isInFire)
