@@ -8,7 +8,8 @@ var playerImgSizeY = 36;
 var numBorder;
 var terrainData;
 var chestData;
- 
+var laserTrapData;
+var fireTrapData;
 manifest = [
      {
          src: "buttons.png",
@@ -231,16 +232,9 @@ function RandomCoordinate() {
 
 function SetupObstacles() {
      obstacles = [];
-     for (var i = 0; i < 30; ++i) {
-         obstacles[i] = new Obstacle("#111", loadPlayerSprite("warrior_m"), RandomCoordinate(), RandomCoordinate());
+    
+    
 
-         obstacles[i].SetTarget(RandomCoordinate(), RandomCoordinate());
-         FindTargetDirection(obstacles[i], obstacles[i].xTarget, obstacles[i].yTarget);
-
-
-         playContainer.addChild(obstacles[i].shape);
-         obstacles[i].Draw();
-     }
 }
 
 function SetupWalls() {
@@ -381,6 +375,34 @@ function makeHWall(i, index) {
      walls.push(new Wall(new createjs.Sprite(terrainData), grid[i + index].x, grid[index].y));
 }
 
+function makeTrap(index, type)
+{
+   
+    
+    if((type %1) === (MudTrap % 1))
+    {
+        
+        block.gotoAndStop("Dirt");
+        var obstacle = new Obstacle(type, block.clone(),  grid[index].x, grid[index].y);
+        obstacles.push(new Obstacle);
+    }
+    else  if((type %1) === (LaserTrap % 1))
+    {
+        var newSprite = new createjs.Sprite(laserTrapData);
+        var obstacle = new Obstacle(type, newSprite,  grid[index].x, grid[index].y);
+        obstacles.push(new Obstacle);
+    }
+    else  if((type %1) === (FireTrap % 1))
+    {
+        var newSprite = new createjs.Sprite(fireTrapData);
+        var obstacle = new Obstacle(type, newSprite,  grid[index].x, grid[index].y);
+        obstacles.push(new Obstacle);
+    }
+    
+
+}
+
+
 function setupMap() {
         chestX = 32;
      chestY = 20;
@@ -489,6 +511,56 @@ function loadSprites() {
          }
      });
 
+        fireTrapData = new createjs.SpriteSheet({
+         images: [queue.getResult("sprites")],
+         frames: {
+             width: spriteImageSize,
+             height: spriteImageSize
+         },
+         animations: {
+             "Castle": {
+                 frames: [0]
+             },
+             "Wood": {
+                 frames: [1]
+             },
+             "Grass": {
+                 frames: [2]
+             },
+             "Dirt": {
+                 frames: [3]
+             },
+             "Water": {
+                 frames: [4]
+             }
+         }
+     });
+    
+        laserTrapData = new createjs.SpriteSheet({
+         images: [queue.getResult("sprites")],
+         frames: {
+             width: spriteImageSize,
+             height: spriteImageSize
+         },
+         animations: {
+             "Castle": {
+                 frames: [0]
+             },
+             "Wood": {
+                 frames: [1]
+             },
+             "Grass": {
+                 frames: [2]
+             },
+             "Dirt": {
+                 frames: [3]
+             },
+             "Water": {
+                 frames: [4]
+             }
+         }
+     });
+    
      block = new createjs.Sprite(terrainData);
      block.gotoAndStop("Castle");
 
