@@ -69,11 +69,6 @@ var cachedVersion = date.getTime();
 
 scriptManifest = [
     {
-        src: "init.js?a=" + cachedVersion,
-        id: "init"
-    },
-
-    {
         src: "setup.js?a=" + cachedVersion,
         id: "setup"
     },
@@ -82,13 +77,6 @@ scriptManifest = [
 //        id: "preloadAudio"
 //    },
     {
-        src: "gamestate.js?a=" + cachedVersion,
-        id: "gamestate"
-    },
-    {
-        src: "gametimer.js?a=" + cachedVersion,
-        id: "gametimer"
-    }, {
         src: "gameLoopBen.js?a=" + cachedVersion,
         id: "gameloop"
     },

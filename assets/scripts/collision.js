@@ -27,7 +27,7 @@ function WallColliding() {
 function HitTests() {
 
     for (var i = 0; i < objectives.length; ++i) {
-        
+
         var objective = objectives[i];
 
         if (ndgmr.checkPixelCollision(playerSprite, objective.shape, 1, true)) {
@@ -53,23 +53,17 @@ function HitTests() {
     for (var i = 0; i < obstacles.length; ++i) {
 
         var obstacle = obstacles[i];
-    
-        if(obstacle.isOn)
-        {
+
+        if (obstacle.isOn) {
             if (ndgmr.checkPixelCollision(playerSprite, obstacle.shape, 1, true)) {
-            
-                if((this.trapType %1) === (MudTrap % 1))
-                {
+
+                if ((this.trapType % 1) === (MudTrap % 1)) {
                     isInMud = true;
                     isInFire = false;
-                }
-                else  if((this.trapType %1) === (LaserTrap % 1))
-                {
+                } else if ((this.trapType % 1) === (LaserVTrap % 1)) {
                     isInMud = false;
                     isInFire = false;
-                }
-                else  if((this.trapType %1) === (FireTrap % 1))
-                {
+                } else if ((this.trapType % 1) === (FireTrap % 1)) {
                     isInMud = false;
                     isInFire = true;
                 }
@@ -77,18 +71,14 @@ function HitTests() {
         }
 
     }
-    
-    if(isInFire)
-    {
+
+    if (isInFire) {
         totalLostTime += 0.1;
     }
-    
-    if(isInMud)
-    {
+
+    if (isInMud) {
         speed = 2;
-    }
-    else
-    {
+    } else {
         speed = 4;
     }
 
