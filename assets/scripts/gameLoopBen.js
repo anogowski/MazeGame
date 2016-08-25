@@ -175,7 +175,8 @@ function TrapUpdates() {
 
         if ((obstacle.trapType) === (MudTrap)) {
 
-        } else {
+        } 
+        else {
             if ((obstacle.currentTime) > 0) {
                 obstacle.currentTime -= 1;
             } else {
@@ -190,9 +191,9 @@ function TrapUpdates() {
                     obstacle.currentTime = obstacle.timeOn;
                 }
                 
-           
+                obstacle.Draw();
             }
-            obstacle.Draw();
+            
         }
 
     }
