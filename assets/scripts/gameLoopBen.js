@@ -21,7 +21,7 @@ function loop() {
 
         // Check current keyboard input, update stage
         updateTime();
-
+        TrapUpdates();
         if (gameTimeLeft <= 0) {
             switchState = true;
             PlayFailSound();
@@ -179,12 +179,18 @@ function TrapUpdates() {
             if ((obstacle.currentTime) > 0) {
                 obstacle.currentTime -= 1;
             } else {
-                obstacle.isOn = !obstacle.isOn;
-                if (obstacle.isOn) {
-                    obstacle.currentTime = obstacle.timeOn;
-                } else {
+                if(obstacle.isOn)
+                {
+                    obstacle.isOn = false;
                     obstacle.currentTime = obstacle.timeOff;
                 }
+                else
+                {
+                    obstacle.isOn = true;
+                    obstacle.currentTime = obstacle.timeOn;
+                }
+                
+           
             }
             obstacle.Draw();
         }

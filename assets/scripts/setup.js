@@ -173,45 +173,42 @@ function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
 
         var newShape = null;
 
-        if ((this.trapType) === (MudTrap)) {
+        if(this.isOn)
+        {
+          if ((this.trapType) === (MudTrap)) {
 
-            block.gotoAndStop("Dirt");
-            newShape = block.clone();
+                block.gotoAndStop("Dirt");
+                newShape = block.clone();
 
-        } else if ((this.trapType) === (LaserVTrap)) {
+            } else if ((this.trapType) === (LaserVTrap)) {
 
-            newShape = new createjs.Sprite(laserVTrapData);
-            if (this.isOn) {
-                newShape.visible = true;
-                newShape.gotoAndPlay("fire");
-            } else {
-                newShape.visible = false;
-                newShape.gotoAndStop("fire");
+                newShape = new createjs.Sprite(laserVTrapData);
+
+                    newShape.gotoAndPlay("fire");
+              
+
+
+            } else if ((this.trapType) === (FireTrap)) {
+
+                newShape = new createjs.Sprite(fireTrapData);
+                newShape.scaleX = 0.5;
+                newShape.scaleY = 0.5;
+              
+                    newShape.gotoAndPlay("fire");
+       
+
             }
 
-        } else if ((this.trapType) === (FireTrap)) {
 
-            newShape = new createjs.Sprite(fireTrapData);
-            newShape.scaleX = 0.5;
-            newShape.scaleY = 0.5;
-            if (this.isOn) {
-                newShape.visible = true;
-                newShape.gotoAndPlay("fire");
-            } else {
-                newShape.visible = false;
-                newShape.gotoAndStop("fire");
-            }
+            this.shape = newShape;
 
+            this.shape.x = this.x;
+            this.shape.y = this.y;
+            playContainer.addChild(this.shape);
+            playContainer.removeChild(playerSprite);
+            playContainer.addChild(playerSprite);
         }
-
-
-        this.shape = newShape;
-
-        this.shape.x = this.x;
-        this.shape.y = this.y;
-        playContainer.addChild(this.shape);
-        playContainer.removeChild(playerSprite);
-        playContainer.addChild(playerSprite);
+      
     };
 }
 
@@ -497,13 +494,13 @@ function makeTrap(index, type) {
     if (type === MudTrap) {
 
         block.gotoAndStop("Dirt");
-        var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y, 10, 10);
+        var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y, 100, 100);
         obstacles.push(obstacle);
         obstacle.Draw();
     } else if ((type) === (LaserVTrap)) {
         var newSprite = new createjs.Sprite(laserVTrapData);
         newSprite.gotoAndPlay("fire");
-        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
+        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 100, 100);
         obstacles.push(obstacle);
         obstacle.Draw();
     } else if ((type) === (FireTrap)) {
@@ -511,7 +508,7 @@ function makeTrap(index, type) {
         newSprite.scaleX = 0.5;
         newSprite.scaleY = 0.5;
         newSprite.gotoAndPlay("fire");
-        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
+        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 100, 100);
         obstacles.push(obstacle);
         obstacle.Draw();
     }
