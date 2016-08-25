@@ -151,6 +151,7 @@ function handleKeyUp(evt) {
         if (jDown) {
 
             jDown = !jDown;
+            IS_EASYMODE = !IS_EASYMODE;
         }
         break;
     }

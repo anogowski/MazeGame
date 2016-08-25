@@ -91,7 +91,7 @@ function loadComplete(evt) {
     setupMap();
     //SetupObstacles();
     SetupWalls(1);
-
+    timeSetup();
     createjs.Ticker.addEventListener("tick", loop);
     createjs.Ticker.setFPS(FPS);
 
@@ -584,11 +584,11 @@ function setupMap() {
     thirdObjective.Draw();
 
 
-    playTime = new createjs.Text();
-    playTime.x = 100;
-    playTime.y = 50;
-    playTime.scaleX = 5;
-    playTime.scaleY = 5;
+    playTime = new createjs.Text("","","#F00");
+    playTime.x = 180;
+    playTime.y = 3;
+    playTime.scaleX = 3;
+    playTime.scaleY = 3;
     playTime.text = "10";
 
 

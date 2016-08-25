@@ -119,6 +119,24 @@ function FindTargetDirection(obstacle, xTarget, yTarget)
     
 }
 
+var timeContainer
+var timeBar;
+
+function timeSetup() {
+    timeContainer = new createjs.Container();
+    boundry = new createjs.Shape();
+    boundry.graphics.beginStroke("#000").drawRect(0, 0, 150, 20);
+
+    timeBar = new createjs.Shape();
+    timeBar.graphics.beginFill("#F00").drawRect(0, 0, 150, 20);
+
+    timeContainer.addChild(boundry, timeBar);
+    timeContainer.x = 5;
+    timeContainer.y = 5;
+    playContainer.addChild(timeContainer);
+}
+
+
 var frameCount = 0;
 var gameTimeLeft = 5;
 function updateTime()
@@ -135,6 +153,14 @@ function updateTime()
          
          }
         playTime.text = Math.round(gameTimeLeft);
+         if(IS_EASYMODE)
+         {
+             timeBar.scaleX = gameTimeLeft / TOTAL_GAME_TIME_J;
+         }
+         else
+         {
+            timeBar.scaleX = gameTimeLeft / TOTAL_GAME_TIME_NORMAL;
+         }
         
 
         
