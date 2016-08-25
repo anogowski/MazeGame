@@ -90,7 +90,7 @@ function loadComplete(evt) {
 
     setupMap();
     //SetupObstacles();
-    SetupWalls();
+    SetupWalls(1);
 
     createjs.Ticker.addEventListener("tick", loop);
     createjs.Ticker.setFPS(FPS);
@@ -260,8 +260,104 @@ function SetupObstacles() {
 
 }
 
-function SetupWalls() {
+function SetupWalls(levelIndex = 2) {
     walls = [];
+
+    if (levelIndex == 1) {
+        Level1();
+    }
+    if (levelIndex == 2) {
+        Level2();
+
+    }
+
+    for (i = 0; i < walls.length; ++i) {
+        playContainer.addChild(walls[i].shape);
+        walls[i].Draw();
+    }
+}
+
+
+function Level1() {
+    var index = 0;
+    var maxi = 0;
+
+    makeWall(5);
+    makeWall(25);
+    makeWall(45);
+
+    index = 63;
+    maxi = 2;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    index = 70;
+    maxi = 5;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    makeWall(85);
+    makeWall(90);
+
+    makeWall(105);
+    makeWall(110);
+
+
+
+    index = 115;
+    maxi = 4;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    makeWall(125);
+    makeWall(135);
+
+    makeWall(145);
+    makeWall(150);
+
+    makeWall(185);
+    makeWall(195);
+
+
+    makeWall(205);
+    makeWall(215);
+
+    makeWall(225);
+
+
+    index = 230;
+    maxi = 5;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+
+    makeWall(245);
+    makeWall(250);
+
+    makeWall(265);
+    makeWall(270);
+
+    makeWall(285);
+    makeWall(290);
+
+    makeWall(305);
+    makeWall(310);
+
+    makeWall(330);
+
+    makeWall(350);
+
+    makeWall(370);
+
+    makeWall(390);
+
+}
+
+function Level2() {
     var index = 61;
     var maxi = 8;
 
@@ -382,14 +478,7 @@ function SetupWalls() {
     for (var i = 0; i <= maxi; ++i) {
         makeHWall(i, index);
     }
-
-
-    for (i = 0; i < walls.length; ++i) {
-        playContainer.addChild(walls[i].shape);
-        walls[i].Draw();
-    }
 }
-
 
 function makeWall(index) {
     walls.push(new Wall(new createjs.Sprite(terrainData), grid[index].x, grid[index].y));
@@ -406,13 +495,13 @@ function makeTrap(index, type) {
         block.gotoAndStop("Dirt");
         var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y, 10, 10);
         obstacles.push(obstacle);
-         obstacle.Draw();
+        obstacle.Draw();
     } else if ((type % 1) === (LaserVTrap % 1)) {
         var newSprite = new createjs.Sprite(laserVTrapData);
         newSprite.gotoAndPlay("fire");
         var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
         obstacles.push(obstacle);
-         obstacle.Draw();
+        obstacle.Draw();
     } else if ((type % 1) === (FireTrap % 1)) {
         var newSprite = new createjs.Sprite(fireTrapData);
         newSprite.scaleX = 0.5;
