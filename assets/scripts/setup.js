@@ -173,12 +173,12 @@ function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
 
         var newShape = null;
 
-        if ((this.trapType % 1) === (MudTrap % 1)) {
+        if ((this.trapType) === (MudTrap)) {
 
             block.gotoAndStop("Dirt");
             newShape = block.clone();
 
-        } else if ((this.trapType % 1) === (LaserVTrap % 1)) {
+        } else if ((this.trapType) === (LaserVTrap)) {
 
             newShape = new createjs.Sprite(laserVTrapData);
             if (this.isOn) {
@@ -189,9 +189,9 @@ function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
                 newShape.gotoAndStop("fire");
             }
 
-        } else if ((this.trapType % 1) === (FireTrap % 1)) {
+        } else if ((this.trapType) === (FireTrap)) {
 
-            newShape = new createjs.Sprite(FireTrap);
+            newShape = new createjs.Sprite(fireTrapData);
             newShape.scaleX = 0.5;
             newShape.scaleY = 0.5;
             if (this.isOn) {
@@ -313,10 +313,15 @@ function Level1() {
     }
 
     makeWall(125);
+    makeWall(130);
     makeWall(135);
 
     makeWall(145);
     makeWall(150);
+    makeWall(155);
+
+    makeTrap(165, 300)
+    makeWall(175);
 
     makeWall(185);
     makeWall(195);
@@ -362,7 +367,6 @@ function Level2() {
     var maxi = 8;
 
     makeWall(31);
-    //makeWall(33);
     makeTrap(33, 100);
     makeWall(37);
 
@@ -490,19 +494,19 @@ function makeHWall(i, index) {
 
 function makeTrap(index, type) {
 
-    if ((type % 1) === (MudTrap % 1)) {
+    if (type === MudTrap) {
 
         block.gotoAndStop("Dirt");
         var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y, 10, 10);
         obstacles.push(obstacle);
         obstacle.Draw();
-    } else if ((type % 1) === (LaserVTrap % 1)) {
+    } else if ((type) === (LaserVTrap)) {
         var newSprite = new createjs.Sprite(laserVTrapData);
         newSprite.gotoAndPlay("fire");
         var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
         obstacles.push(obstacle);
         obstacle.Draw();
-    } else if ((type % 1) === (FireTrap % 1)) {
+    } else if ((type) === (FireTrap)) {
         var newSprite = new createjs.Sprite(fireTrapData);
         newSprite.scaleX = 0.5;
         newSprite.scaleY = 0.5;
@@ -630,9 +634,9 @@ function loadSprites() {
         },
         animations: {
             "fire": {
-                frames: [0, 1, 2, 3, 4],
-                speed: 0.8
-            },
+                frames: [0, 1, 2, 3],
+                speed: 0.2
+            }
         }
     });
 

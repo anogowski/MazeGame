@@ -50,23 +50,23 @@ function HitTests() {
 
     var isInMud = false;
     var isInFire = false;
-   
+
     for (var i = 0; i < obstacles.length; ++i) {
 
         var obstacle = obstacles[i];
 
-     
+
         if (obstacle.isOn) {
             if (ndgmr.checkPixelCollision(playerSprite, obstacle.shape, 1, true)) {
 
-                if ((obstacle.trapType % 1) === (MudTrap % 1)) {
+                if ((obstacle.trapType) === (MudTrap)) {
                     isInMud = true;
                     console.log("inMud");
                     isInFire = false;
-                } else if ((obstacle.trapType % 1) === (LaserVTrap % 1)) {
+                } else if ((obstacle.trapType) === (LaserVTrap)) {
                     isInMud = false;
                     isInFire = false;
-                } else if ((obstacle.trapType % 1) === (FireTrap % 1)) {
+                } else if ((obstacle.trapType) === (FireTrap)) {
                     isInMud = false;
                     isInFire = true;
                 }
