@@ -282,8 +282,12 @@ function Level1() {
     var index = 0;
     var maxi = 0;
 
-    makeWall(5);
+    makeTrap(23, 200);
+    makeTrap(24, 200);
     makeWall(25);
+
+    makeTrap(43, 200);
+    makeTrap(44, 200);
     makeWall(45);
 
     index = 63;
@@ -497,13 +501,13 @@ function makeTrap(index, type) {
     if (type === MudTrap) {
 
         block.gotoAndStop("Dirt");
-        var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y, 10, 10);
+        var obstacle = new Obstacle(type, block.clone(), grid[index].x, grid[index].y, 100, 100);
         obstacles.push(obstacle);
         obstacle.Draw();
     } else if ((type) === (LaserVTrap)) {
         var newSprite = new createjs.Sprite(laserVTrapData);
         newSprite.gotoAndPlay("fire");
-        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
+        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 100, 100);
         obstacles.push(obstacle);
         obstacle.Draw();
     } else if ((type) === (FireTrap)) {
@@ -511,7 +515,7 @@ function makeTrap(index, type) {
         newSprite.scaleX = 0.5;
         newSprite.scaleY = 0.5;
         newSprite.gotoAndPlay("fire");
-        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 10, 10);
+        var obstacle = new Obstacle(type, newSprite, grid[index].x, grid[index].y, 100, 50);
         obstacles.push(obstacle);
         obstacle.Draw();
     }
@@ -584,7 +588,7 @@ function setupMap() {
     thirdObjective.Draw();
 
 
-    playTime = new createjs.Text("","","#F00");
+    playTime = new createjs.Text("", "", "#F00");
     playTime.x = 180;
     playTime.y = 3;
     playTime.scaleX = 3;
