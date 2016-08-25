@@ -69,11 +69,7 @@ function HitTests() {
                     frameCount = (TOTAL_GAME_TIME_NORMAL * FPS);
                     
                 }
-                else if ((obstacle.trapType) === (LaserHTrapTrap)) {
-                    isInMud = false;
-                    isInFire = false;
-                    frameCount = (TOTAL_GAME_TIME_NORMAL * FPS);
-                }
+     
                 else if ((obstacle.trapType) === (FireTrap)) {
                     isInMud = false;
                     isInFire = true;
