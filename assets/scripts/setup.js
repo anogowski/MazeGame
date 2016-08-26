@@ -90,7 +90,7 @@ function loadComplete(evt) {
 
     setupMap();
     //SetupObstacles();
-    SetupWalls(3);
+    SetupWalls(currentLevel);
     timeSetup();
     createjs.Ticker.addEventListener("tick", loop);
     createjs.Ticker.setFPS(FPS);
@@ -258,7 +258,7 @@ function SetupObstacles() {
 
 function SetupWalls(levelIndex = 2) {
     walls = [];
-
+    
     if (levelIndex == 1) {
         Level1();
     } else if (levelIndex == 2) {
@@ -387,13 +387,13 @@ function Level2() {
 
     makeWall(89);
     makeWall(97);
-
+    makeTrap(98, 200);
     index = 102;
     maxi = 5;
     for (var i = 0; i <= maxi; ++i) {
         makeHWall(i, index);
     }
-
+    makeTrap(108, 200);
     makeWall(109);
 
     index = 111;
@@ -463,8 +463,9 @@ function Level2() {
         makeHWall(i, index);
     }
 
-
+    makeTrap(302, 200);
     makeWall(304);
+    
     makeWall(308);
     makeWall(312);
     makeWall(316);
@@ -481,6 +482,7 @@ function Level2() {
     for (var i = 0; i <= maxi; ++i) {
         makeHWall(i, index);
     }
+    
 }
 
 function Level3() {
@@ -972,6 +974,20 @@ function resetPlay() {
 
 
     }
+    
+    for (var i = 0; i < obstacles.length; i++) {
+        obstacles[i].Remove();
+        playContainer.removeChild(obstacles[i].shape);
+
+
+    }
+    
+        for (var i = 0; i < walls.length; i++) {
+        walls[i].Remove();
+        playContainer.removeChild(walls[i].shape);
+
+
+    }
     playContainer.removeChild(playerSprite);
     playContainer.removeChild(playTime);
 
@@ -979,7 +995,9 @@ function resetPlay() {
 
     playerSprite = loadPlayerSprite("ninja_m");
     setupMap();
+    SetupWalls(currentLevel);
     chestsGotten = 0;
+    hasKey = false;
 
 }
 

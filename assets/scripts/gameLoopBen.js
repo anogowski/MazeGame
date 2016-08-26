@@ -25,10 +25,20 @@ function loop() {
         if (gameTimeLeft <= 0) {
             switchState = true;
             PlayFailSound();
+            currentLevel = 1;
             resetPlay();
         } else if (ObjectivesComplete()) {
-            switchState = true;
+            
             PlaySuccessSound();
+            if(currentLevel < 3)
+            {
+                currentLevel += 1;
+            }
+            else
+            {
+                currentLevel = 1;
+                switchState = true;
+            }
             resetPlay();
         } else {
             MoveObjects();

@@ -67,6 +67,7 @@ function HitTests() {
                     isInMud = false;
                     isInFire = false;
                     frameCount = (TOTAL_GAME_TIME_NORMAL * FPS);
+                    chestsGotten = 0;
                     
                 }
      
