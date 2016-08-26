@@ -90,7 +90,7 @@ function loadComplete(evt) {
 
     setupMap();
     //SetupObstacles();
-    SetupWalls(1);
+    SetupWalls(3);
     timeSetup();
     createjs.Ticker.addEventListener("tick", loop);
     createjs.Ticker.setFPS(FPS);
@@ -261,10 +261,11 @@ function SetupWalls(levelIndex = 2) {
 
     if (levelIndex == 1) {
         Level1();
-    }
-    if (levelIndex == 2) {
+    } else if (levelIndex == 2) {
         Level2();
 
+    } else if (levelIndex == 3) {
+        Level3();
     }
 
     for (i = 0; i < walls.length; ++i) {
@@ -480,6 +481,10 @@ function Level2() {
     for (var i = 0; i <= maxi; ++i) {
         makeHWall(i, index);
     }
+}
+
+function Level3() {
+
 }
 
 function makeWall(index) {
