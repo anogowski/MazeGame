@@ -173,9 +173,8 @@ function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
 
         var newShape = null;
 
-        if(this.isOn)
-        {
-          if ((this.trapType) === (MudTrap)) {
+        if (this.isOn) {
+            if ((this.trapType) === (MudTrap)) {
 
                 block.gotoAndStop("Dirt");
                 newShape = block.clone();
@@ -184,8 +183,8 @@ function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
 
                 newShape = new createjs.Sprite(laserVTrapData);
 
-                    newShape.gotoAndPlay("fire");
-              
+                newShape.gotoAndPlay("fire");
+
 
 
             } else if ((this.trapType) === (FireTrap)) {
@@ -193,9 +192,9 @@ function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
                 newShape = new createjs.Sprite(fireTrapData);
                 newShape.scaleX = 0.5;
                 newShape.scaleY = 0.5;
-              
-                    newShape.gotoAndPlay("fire");
-       
+
+                newShape.gotoAndPlay("fire");
+
 
             }
 
@@ -208,7 +207,7 @@ function Obstacle(_trapType, _shape, _x, _y, _timeOn, _timeOff) {
             playContainer.removeChild(playerSprite);
             playContainer.addChild(playerSprite);
         }
-      
+
     };
 }
 
@@ -357,9 +356,7 @@ function Level1() {
 
     makeWall(350);
 
-    makeWall(370);
-
-    makeWall(390);
+    makeTrap(370, 200);
 
 }
 
