@@ -81,7 +81,7 @@ function handleKeyDown(evt) {
         return false;
     case KEYCODE_J:
         if (!jDown) {
-
+            PlayJamie();
             jDown = !jDown;
         }
         return false;

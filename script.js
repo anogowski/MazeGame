@@ -17,7 +17,7 @@ var audioSrc = "assets/audio/";
 var TOTAL_GAME_TIME_NORMAL = 50;
 var TOTAL_GAME_TIME_J = 10000;
 var IS_EASYMODE = false;
-var currentLevel = 2;
+var currentLevel = 1;
 var chestsGotten = 0;
 
 var sprites;
@@ -43,7 +43,8 @@ var gameOverTime;
 var totalLostTime = 0;
 
 
-
+var jamieScreem;
+var bgm;
 
 
 function setupCanvas() {

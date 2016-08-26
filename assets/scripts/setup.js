@@ -11,6 +11,10 @@ var chestData;
 var laserVTrapData;
 var laserHTrapData;
 var fireTrapData;
+
+var muteButton;
+var isMuted = false;
+
 manifest = [
     {
         src: "buttons.png",
@@ -68,21 +72,34 @@ manifest = [
     {
         src: "success.mp3",
         id: "success"
+    },
+    {
+        src: "JamieScream.m4a",
+        id: "jamie"
+    },
+    {
+        src: "rhinoceros.mp3",
+        id: "bgm"
     }
+
 ];
 
 
 function loadFiles() {
-      createjs.Sound.alternateExtensions = ["mp3"];
+    createjs.Sound.alternateExtensions = ["mp3"];
     queue = new createjs.LoadQueue(true, imgSrc); //files are stored in 'images' directory
-  
+
     queue.installPlugin(createjs.Sound);
     queue.on("complete", loadComplete, this); //when loading is done run 'loadComplete()'
     queue.loadManifest(manifest); //load files listed in 'manifest'
+
+
 }
 
 
 function loadComplete(evt) {
+    PlayBGM();
+
     loadSprites();
 
     gridSetup();
@@ -261,7 +278,7 @@ function SetupObstacles() {
 
 function SetupWalls(levelIndex = 2) {
     walls = [];
-    
+
     if (levelIndex == 1) {
         Level1();
     } else if (levelIndex == 2) {
@@ -468,7 +485,7 @@ function Level2() {
 
     makeTrap(302, 200);
     makeWall(304);
-    
+
     makeWall(308);
     makeWall(312);
     makeWall(316);
@@ -485,7 +502,7 @@ function Level2() {
     for (var i = 0; i <= maxi; ++i) {
         makeHWall(i, index);
     }
-    
+
 }
 
 function Level3() {
@@ -827,6 +844,25 @@ function loadSprites() {
         }
     });
 
+    muteButton = new createjs.Sprite(buttonSheet);
+    muteButton.x = 50;
+    muteButton.y = CANVAS_SIZE - 50;
+    muteButton.gotoAndStop(15);
+
+
+    muteButton.addEventListener("click", function (event) {
+        if (isMuted) {
+            muteButton.gotoAndStop(15);
+            isMuted = !isMuted;
+            bgm.volume = 0.5;
+        } else {
+            muteButton.gotoAndStop(16);
+            isMuted = !isMuted;
+            bgm.volume = 0;
+        }
+    });
+
+    stage.addChild(muteButton);
 
     var menuButton = new createjs.Sprite(buttonSheet);
     menuButton.x = 300;
@@ -854,9 +890,9 @@ function loadSprites() {
     playButton.on("click", function (evt) {
         gameState = PLAY;
 
-
-
     });
+
+
 
     // order of added determines what shows on top.
     titleContainer.addChild(new createjs.Bitmap(queue.getResult("titlePNG")));
@@ -977,15 +1013,15 @@ function resetPlay() {
 
 
     }
-    
+
     for (var i = 0; i < obstacles.length; i++) {
         obstacles[i].Remove();
         playContainer.removeChild(obstacles[i].shape);
 
 
     }
-    
-        for (var i = 0; i < walls.length; i++) {
+
+    for (var i = 0; i < walls.length; i++) {
         walls[i].Remove();
         playContainer.removeChild(walls[i].shape);
 
@@ -1004,10 +1040,19 @@ function resetPlay() {
 
 }
 
+function PlayJamie() {
+    jamieScreem = createjs.Sound.play("jamie");
+}
+
+function PlayBGM() {
+    bgm = createjs.Sound.play("bgm", {
+        loop: -1
+    });
+}
 
 function PlaySuccessSound() {
     createjs.Sound.play("success");
-     console.log("success");
+    console.log("success");
 }
 
 function PlayFailSound() {
