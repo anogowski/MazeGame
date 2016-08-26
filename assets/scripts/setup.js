@@ -485,7 +485,13 @@ function Level2() {
 
 function Level3() {
     makeWall(23);
+    makeTrap(24, 300);
+    makeTrap(28, 300);
+    makeTrap(32, 300);
+
     makeWall(43);
+
+    makeTrap(44, 200);
 
     index = 45;
     maxi = 6;
@@ -494,6 +500,8 @@ function Level3() {
     }
 
     makeWall(63);
+    makeTrap(64, 100);
+
     makeWall(65);
 
     index = 71;
@@ -503,9 +511,15 @@ function Level3() {
     }
 
     makeWall(83);
+    makeTrap(84, 100);
     makeWall(85);
     makeWall(87);
+    makeTrap(90, 300);
     makeWall(94);
+
+    makeTrap(103, 200);
+    makeTrap(104, 100);
+
     makeWall(105);
     makeWall(107);
     makeWall(112);
@@ -513,6 +527,7 @@ function Level3() {
     makeWall(123);
     makeWall(125);
     makeWall(127);
+    makeTrap(130, 300);
     makeWall(134);
     makeWall(138);
 
@@ -525,6 +540,7 @@ function Level3() {
     makeWall(152);
     makeWall(156);
     makeWall(167);
+    makeTrap(170, 300);
     makeWall(174);
 
     index = 181;
@@ -532,6 +548,12 @@ function Level3() {
     for (var i = 0; i <= maxi; ++i) {
         makeHWall(i, index);
     }
+
+
+    makeTrap(205, 200);
+    makeTrap(210, 200);
+    makeTrap(215, 200);
+
 
     index = 222;
     maxi = 16;
@@ -547,6 +569,7 @@ function Level3() {
     }
 
     makeWall(272);
+    makeTrap(273, 300);
 
     index = 274;
     maxi = 3;
@@ -557,20 +580,24 @@ function Level3() {
     makeWall(286);
     makeWall(290);
     makeWall(292);
+    makeTrap(293, 300);
     makeWall(294);
+    makeTrap(297, 200);
     makeWall(303);
     makeWall(304);
     makeWall(306);
     makeWall(308);
     makeWall(310);
     makeWall(312);
+    makeTrap(313, 300);
     makeWall(314);
     makeWall(317);
     makeWall(323);
     makeWall(326);
     makeWall(328);
     makeWall(332);
-    makeWall(334);
+    makeTrap(333, 100);
+    makeTrap(334, 200);
     makeWall(337);
     makeWall(343);
     makeWall(345);
@@ -583,6 +610,13 @@ function Level3() {
     }
 
     makeWall(363);
+
+    makeTrap(364, 100);
+    makeTrap(365, 200);
+    makeTrap(369, 100);
+    makeTrap(370, 200);
+    makeTrap(374, 100);
+    makeTrap(375, 200);
 }
 
 function makeWall(index) {
@@ -877,8 +911,8 @@ function loadPlayerSprite(fileName) {
 
     characterSprite.x = 32;
     characterSprite.y = 32;
-    characterSprite.scaleX = 0.95;
-    characterSprite.scaleY = 0.85;
+    characterSprite.scaleX = 0.90;
+    characterSprite.scaleY = 0.78;
     characterSprite.gotoAndPlay("WalkUp");
 
     return characterSprite;
