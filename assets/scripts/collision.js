@@ -68,7 +68,7 @@ function HitTests() {
                     isInFire = false;
                     frameCount = (TOTAL_GAME_TIME_NORMAL * FPS);
                     chestsGotten = 0;
-                    
+                
                 }
      
                 else if ((obstacle.trapType) === (FireTrap)) {

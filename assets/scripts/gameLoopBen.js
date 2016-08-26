@@ -25,6 +25,7 @@ function loop() {
         if (gameTimeLeft <= 0) {
             switchState = true;
             PlayFailSound();
+            
             currentLevel = 1;
             resetPlay();
         } else if (ObjectivesComplete()) {

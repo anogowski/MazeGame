@@ -73,7 +73,10 @@ manifest = [
 
 
 function loadFiles() {
+      createjs.Sound.alternateExtensions = ["mp3"];
     queue = new createjs.LoadQueue(true, imgSrc); //files are stored in 'images' directory
+  
+    queue.installPlugin(createjs.Sound);
     queue.on("complete", loadComplete, this); //when loading is done run 'loadComplete()'
     queue.loadManifest(manifest); //load files listed in 'manifest'
 }
@@ -1004,8 +1007,10 @@ function resetPlay() {
 
 function PlaySuccessSound() {
     createjs.Sound.play("success");
+     console.log("success");
 }
 
 function PlayFailSound() {
     createjs.Sound.play("fail");
+    console.log("fail");
 }
