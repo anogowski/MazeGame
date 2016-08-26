@@ -484,7 +484,105 @@ function Level2() {
 }
 
 function Level3() {
+    makeWall(23);
+    makeWall(43);
 
+    index = 45;
+    maxi = 6;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    makeWall(63);
+    makeWall(65);
+
+    index = 71;
+    maxi = 6;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    makeWall(83);
+    makeWall(85);
+    makeWall(87);
+    makeWall(94);
+    makeWall(105);
+    makeWall(107);
+    makeWall(112);
+    makeWall(116);
+    makeWall(123);
+    makeWall(125);
+    makeWall(127);
+    makeWall(134);
+    makeWall(138);
+
+    index = 45;
+    maxi = 2;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+    makeWall(147);
+    makeWall(152);
+    makeWall(156);
+    makeWall(167);
+    makeWall(174);
+
+    index = 181;
+    maxi = 16;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    index = 222;
+    maxi = 16;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+    makeWall(242);
+
+    index = 262;
+    maxi = 8;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    makeWall(272);
+
+    index = 274;
+    maxi = 3;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    makeWall(286);
+    makeWall(290);
+    makeWall(292);
+    makeWall(294);
+    makeWall(303);
+    makeWall(304);
+    makeWall(306);
+    makeWall(308);
+    makeWall(310);
+    makeWall(312);
+    makeWall(314);
+    makeWall(317);
+    makeWall(323);
+    makeWall(326);
+    makeWall(328);
+    makeWall(332);
+    makeWall(334);
+    makeWall(337);
+    makeWall(343);
+    makeWall(345);
+    makeWall(346);
+
+    index = 348;
+    maxi = 9;
+    for (var i = 0; i <= maxi; ++i) {
+        makeHWall(i, index);
+    }
+
+    makeWall(363);
 }
 
 function makeWall(index) {
